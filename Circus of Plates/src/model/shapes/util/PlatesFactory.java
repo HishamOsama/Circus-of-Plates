@@ -3,7 +3,7 @@ package model.shapes.util;
 import java.util.Collection;
 import java.util.HashMap;
 
-import model.shapes.Shape;
+import model.shapes.interfaces.Shape;
 
 public class PlatesFactory {
 
