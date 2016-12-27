@@ -1,5 +1,7 @@
 package model.shapes;
 
+import java.io.File;
+
 public interface Shape {
 
 	public int getNumberOfPoints();
@@ -7,5 +9,7 @@ public interface Shape {
 	public double[] getLengths();
 
 	public double[] getAngles();
+
+	public File getImage();
 
 }
