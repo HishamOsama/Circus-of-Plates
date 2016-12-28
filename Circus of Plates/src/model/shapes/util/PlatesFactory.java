@@ -22,11 +22,20 @@ public class PlatesFactory {
 
 	public void registerShape(final String key,
 			final Class<? extends Shape> shapeClass) {
+		System.out.println("Registered Successfully " + key);
 		registeredShapes.put(key, shapeClass);
 	}
 
-	// There should be the creation method here but it
-	// depends on the constructor of the Shape class
+	public Shape getShape(final String key) {
+		try {
+			final Class<? extends Shape> shapeClass
+			= registeredShapes.get(key);
+			return shapeClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			return null;
+		}
+	}
+
 	public Collection<String> getRegisteredShapes() {
         return registeredShapes.keySet();
     }

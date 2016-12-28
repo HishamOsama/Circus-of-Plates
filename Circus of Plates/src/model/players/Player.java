@@ -2,7 +2,17 @@ package model.players;
 
 import java.io.File;
 
-public interface Player {
+public class Player {
 
-	public File getImage();
+	private final String imagePath;
+	private final File image;
+
+	public Player() {
+		imagePath = "ClownImage" + File.separator + "clown.png";
+		image = new File(imagePath);
+	}
+
+	public File getImage() {
+		return image;
+	}
 }
