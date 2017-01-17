@@ -7,6 +7,9 @@ import java.util.BitSet;
 
 import javax.swing.Timer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,16 +21,21 @@ import javafx.scene.layout.Pane;
 import model.players.Player;
 import model.shapes.interfaces.Shape;
 
+
 public class MainController {
 
 	@FXML
 	private Pane paneFXid;
 
+
 	private BitSet keyboardBitSet = new BitSet();
 	private static final int KEYBOARD_MOVEMENT_DELTA = 25;
+	private Logger logger;
 
 	@FXML
 	public void initialize() {
+	    logger = LogManager.getLogger();
+	    logger.debug("Hello");
 		final ImageView player1 = createP1();
 		final ImageView player2 = createP2();
 		generateStars();
