@@ -12,8 +12,8 @@ public class Player {
     private File imageFile;
     private BufferedImage image;
 
-    public Player(String imageName) {
-        imagePath = "C:\\Users\\Hesham\\git\\circus-of-plates\\Circus of Plates\\" + "ClownImages" + File.separator
+    public Player(final String imageName) {
+        imagePath = System.getProperty("user.dir") + File.separator + "ClownImages" + File.separator
                 + imageName;
         loadImage();
     }

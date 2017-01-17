@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
@@ -14,12 +15,12 @@ import model.shapes.interfaces.Shape;
 public class App extends Application {
 
 	/// The main method to launch the paint application
-	
+
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
+	public void start(final Stage primaryStage) throws Exception {
+
 		final Loader loader = new Loader();
-        final String path = "C:\\Users\\Hesham\\git\\circus-of-plates\\Circus of Plates\\shapesJARS\\";
+        final String path = System.getProperty("user.dir") + File.separator + "shapesJARS" + File.separator;
         loader.setPath(path);
         final ArrayList<Constructor<Shape>> loaded = loader.invokeClassMethod();
         for(int i = 0 ; i < loaded.size() ; i++){
@@ -29,17 +30,17 @@ public class App extends Application {
 				e.printStackTrace();
 			}
         }
-		
-		Parent root = FXMLLoader.load(getClass().getResource("/view/GameDesign.fxml"));
+
+		final Parent root = FXMLLoader.load(getClass().getResource("/view/GameDesign.fxml"));
 		primaryStage.setTitle("Game");
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setMinWidth(700);
 		primaryStage.setMinHeight(700);
 		primaryStage.show();
-		
+
 	}
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		launch(args);
 	}
 }
