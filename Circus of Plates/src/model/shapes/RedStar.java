@@ -3,6 +3,7 @@ package model.shapes;
 import java.awt.Color;
 import java.io.File;
 
+import model.shapes.util.ImageConstants;
 import model.shapes.util.PlatesFactory;
 
 public class RedStar extends StarShape {
@@ -13,9 +14,16 @@ public class RedStar extends StarShape {
     }
 
 	public RedStar() {
-		imagePath = mainPath + File.separator +
-				this.getClass().getSimpleName();
 		shapeColor = Color.RED;
+		for (final String extension : ImageConstants.RESERVED_IMAGE_EXTENSIONS) {
+			try {
+				imagePath = mainPath + File.separator + this.getClass().getSimpleName() + extension;
+				loadImage();
+				break;
+			} catch (final Exception e) {
+				continue;
+			}
+		}
 	}
 
 }

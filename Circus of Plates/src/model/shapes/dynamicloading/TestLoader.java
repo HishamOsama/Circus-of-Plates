@@ -1,6 +1,7 @@
 package model.shapes.dynamicloading;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import model.shapes.interfaces.Shape;
@@ -19,6 +20,12 @@ public class TestLoader {
 				e.printStackTrace();
 			}
             System.out.println(loaded.get(i).getName());
+            try {
+				final Shape shape = loaded.get(i).newInstance();
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+				e.printStackTrace();
+			}
         }
 
     }
