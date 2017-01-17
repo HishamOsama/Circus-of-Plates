@@ -14,6 +14,7 @@ public class YellowStar extends StarShape {
 	}
 
 	public YellowStar() {
+		super();
 		shapeColor = Color.YELLOW;
 		for (final String extension : ImageConstants.RESERVED_IMAGE_EXTENSIONS) {
 			try {

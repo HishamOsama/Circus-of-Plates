@@ -16,7 +16,7 @@ public abstract class Shape {
 	protected Color shapeColor;
 
 	public Shape() {
-		final File file = new File("D:\\College\\2ndYear1stTerm\\OOP\\CircusOfPlatesRepository\\circus-of-plates\\Circus of Plates\\");
+		final File file = new File("C:\\Users\\Hesham\\git\\circus-of-plates\\Circus of Plates\\");
 		final String[] directories = file.list();
 		for (final String directory : directories) {
 			if (directory.equals("ShapeImages")) {

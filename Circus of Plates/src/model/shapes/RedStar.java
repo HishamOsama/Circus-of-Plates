@@ -8,12 +8,15 @@ import model.shapes.util.PlatesFactory;
 
 public class RedStar extends StarShape {
 
+	
+	
 	static {
         PlatesFactory.getInstance().registerShape("RedStar", RedStar.class);
         System.out.println("Static Initializer Executed");
     }
 
 	public RedStar() {
+		super();
 		shapeColor = Color.RED;
 		for (final String extension : ImageConstants.RESERVED_IMAGE_EXTENSIONS) {
 			try {
@@ -25,5 +28,7 @@ public class RedStar extends StarShape {
 			}
 		}
 	}
+	
+	
 
 }

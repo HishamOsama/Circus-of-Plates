@@ -8,11 +8,12 @@ import model.shapes.util.PlatesFactory;
 public class PlatesPool {
 
 	private final ArrayList<Shape> plates;
-	private final int MAX_SHAPE_COUNT = 20;
-	private final int indexOfCurrentServed;
+	private final int MAX_SHAPE_COUNT = 2;
+	private int indexOfCurrentServed;
+
 	public PlatesPool() {
 		plates = new ArrayList<>();
-		indexOfCurrentServed = -1;//Should be 0
+		indexOfCurrentServed = -1; // Should be 0
 		fillPlatesPool();
 	}
 
@@ -23,13 +24,14 @@ public class PlatesPool {
 				plates.add(factory.getShape(key));
 			}
 		}
- 	}
+		indexOfCurrentServed = plates.size() - 1;
+	}
 
 	public Shape getPlate() {
 		if (plates.size() < indexOfCurrentServed) {
 			throw new RuntimeException();
 		}
-		final Shape requestedPlate = plates.remove(indexOfCurrentServed);
+		final Shape requestedPlate = plates.remove(indexOfCurrentServed--);
 		return requestedPlate;
 	}
 
