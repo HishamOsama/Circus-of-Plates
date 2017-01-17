@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import model.players.Player;
 import model.shapes.interfaces.Shape;
 
 public class MainController {
@@ -35,8 +36,10 @@ public class MainController {
 	}
 
 	private ImageView createP1() {
-		final String imagePath = "http://www.clipartlord.com/wp-content/uploads/2015/07/clown16.png";
-		final ImageView imageView = new ImageView(imagePath);
+
+		Player player1 = new Player("Clown1.png");
+		BufferedImage image = player1.getImage();
+		ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(400);
@@ -46,8 +49,9 @@ public class MainController {
 	}
 
 	private ImageView createP2() {
-		final String imagePath = "http://www.clipartlord.com/wp-content/uploads/2015/07/clown16.png";
-		final ImageView imageView = new ImageView(imagePath);
+		Player player2 = new Player("Clown2.png");
+		BufferedImage image = player2.getImage();
+		ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(100);
@@ -126,6 +130,14 @@ public class MainController {
 
 		timer.start();
 
+	}
+
+	private ImageView convertImage(BufferedImage image) {
+		Image imageF = SwingFXUtils.toFXImage(image, null);
+
+		ImageView dispaly = new ImageView(imageF);
+
+		return dispaly;
 	}
 
 }

@@ -13,7 +13,7 @@ public class Player {
     private BufferedImage image;
 
     public Player(String imageName) {
-        imagePath = "C:\\Users\\Hesham\\git\\circus-of-plates\\Circus of Plates\\" + "ClownImage" + File.separator
+        imagePath = "C:\\Users\\Hesham\\git\\circus-of-plates\\Circus of Plates\\" + "ClownImages" + File.separator
                 + imageName;
         loadImage();
     }
