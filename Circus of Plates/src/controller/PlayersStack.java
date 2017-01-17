@@ -2,6 +2,8 @@ package controller;
 
 import java.util.Stack;
 
+import controller.Enumrations.players;
+
 /**
  *  General Comments :
  *              - The blue comments are used to documentation.
@@ -18,12 +20,6 @@ import java.util.Stack;
 public class PlayersStack {
     
     /**
-     *  Enumeration to differ between stacks of players
-     */
-    public enum players{
-        player1,player2;
-    }
-    /**
      *  Max number of similarity we want to increase the score.
      * */
     private final int similarity = 3;
@@ -38,13 +34,12 @@ public class PlayersStack {
     /**
      *  Score controller that should be modified if we found match.
      * */
-    //private score controller here;
+    private ScoreManager manager;
     
-    public PlayersStack(players type/*, Score controller*/) {
-        // TODO Auto-generated constructor stub
+    public PlayersStack(players type, ScoreManager controller) {
         plates = new Stack<>();
         this.type = type;
-        // this.scoreController = scoreController;
+         this.manager = controller;
     }
     /**
     *   Add the new shape to the stack ,then check if we found match
@@ -97,6 +92,6 @@ public class PlayersStack {
      *  modify the Score manager to update the score of the current player.
      * */
     private void updateScore(){
-        // updateScoreManager(type);
+         manager.updateScore(type);
     }
 }
