@@ -97,34 +97,34 @@ public class MainController {
 
 	// Setting Stars initially
 	private void generateStars() {
-		System.out.println("HERE!!!!");
 
-		PlatesPool platesPool = new PlatesPool();
+		ImageView[] imageView = new ImageView[4];
 
-		Shape star = platesPool.getPlate();
+		for (int i = 0; i < 4; i++) {
+			PlatesPool platesPool = new PlatesPool();
+			Shape star = platesPool.getPlate();
+			BufferedImage starImage = star.getImage();
+			Image image = SwingFXUtils.toFXImage(starImage, null);
 
-		BufferedImage starImage = star.getImage();
-
-		Image image = SwingFXUtils.toFXImage(starImage, null);
-
-		ImageView dispaly = new ImageView(image);
-		dispaly.setFitHeight(50);
-		dispaly.setFitWidth(50);
-		dispaly.setX(50);
-		dispaly.setY(-50);
-
-		
+			ImageView dispaly = new ImageView(image);
+			dispaly.setFitHeight(50);
+			dispaly.setFitWidth(50);
+			dispaly.setX(50 + (i * 100));
+			dispaly.setY(-50);
+			imageView[i] = dispaly;
+			paneFXid.getChildren().add(imageView[i]);
+		}
 
 		Timer timer = new Timer(30, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispaly.setY(dispaly.getY() + 1);
+				for (int i = 0; i < 4; i++) {
+					imageView[i].setY(imageView[i].getY() + 2);
+				}
+
 			}
 		});
-		
-        timer.start();
 
-
-		paneFXid.getChildren().add(dispaly);
+		timer.start();
 
 	}
 

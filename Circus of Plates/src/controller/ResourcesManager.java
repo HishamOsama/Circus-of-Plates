@@ -11,8 +11,8 @@ public class ResourcesManager {
 
 	public ResourcesManager() {
 		platesPool = new PlatesPool();
-		player1 = new Player();
-		player2 = new Player();
+		player1 = new Player("Clown1");
+		player2 = new Player("Clown2");
 	}
 
 	public Shape getPlate() {
