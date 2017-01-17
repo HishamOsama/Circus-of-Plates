@@ -12,7 +12,7 @@ public class PlatesPool {
 	private final int indexOfCurrentServed;
 	public PlatesPool() {
 		plates = new ArrayList<>();
-		indexOfCurrentServed = -1;
+		indexOfCurrentServed = -1;//Should be 0
 		fillPlatesPool();
 	}
 
