@@ -19,6 +19,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import model.players.Player;
+import model.shapes.PlatesPool;
 import model.shapes.interfaces.Shape;
 
 

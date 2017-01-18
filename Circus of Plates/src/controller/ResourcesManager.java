@@ -1,6 +1,7 @@
 package controller;
 
 import model.players.Player;
+import model.shapes.PlatesPool;
 import model.shapes.interfaces.Shape;
 
 public class ResourcesManager {

@@ -1,9 +1,9 @@
-package controller;
+package model.shapes;
 
 import java.util.ArrayList;
 
-import controller.util.Container;
-import controller.util.Iterator;
+import controller.util.iterator.Container;
+import controller.util.iterator.Iterator;
 import model.shapes.interfaces.Shape;
 import model.shapes.util.PlatesFactory;
 

@@ -1,4 +1,4 @@
-package controller.util;
+package controller.util.iterator;
 
 public interface Iterator {
 
