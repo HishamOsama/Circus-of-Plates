@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.util.Stack;
 
 import controller.Enumrations.players;
@@ -26,7 +27,7 @@ public class PlayersStack {
     /**
      *  Stack that save the names of the shapes that should be distinct.
      * */
-    private final Stack<String> plates;
+    private final Stack<Color> plates;
     /**
      *  Which player this object belongs to.
      * */
@@ -39,7 +40,7 @@ public class PlayersStack {
     public PlayersStack(final players type, final ScoreManager controller) {
         plates = new Stack<>();
         this.type = type;
-         this.manager = controller;
+        this.manager = controller;
     }
     /**
     *   Add the new shape to the stack ,then check if we found match
@@ -47,7 +48,7 @@ public class PlayersStack {
     *       @param plate
     *                   the plate to put in the Stack.
     */
-    public void addShape(final String plate){
+    public void addShape(final Color plate){
         plates.push(plate);
         checkStack();
 
@@ -59,7 +60,7 @@ public class PlayersStack {
      * */
     private void checkStack(){
         if(plates.size() >= similarity){
-            final String[] platesToCheck = new String[similarity];
+            final Color[] platesToCheck = new Color[similarity];
             for(int i = 0 ; i < similarity ; i++){
                 platesToCheck[i] = plates.pop();
             }
@@ -77,9 +78,9 @@ public class PlayersStack {
     *       @return true -> the items are all similar
     *               false -> at least one item is not similar
     */
-    private boolean checkSimilarity (final String[] platesToCheck){
+    private boolean checkSimilarity (final Color[] platesToCheck){
         boolean allSimilar = true;
-        final String comparator = platesToCheck[0];
+        final Color comparator = platesToCheck[0];
         for(int i = similarity-1 ; i > 0 ; i--){
             if(!platesToCheck[i].equals(comparator)){
                 allSimilar = false;

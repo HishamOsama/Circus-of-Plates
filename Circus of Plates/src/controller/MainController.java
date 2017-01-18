@@ -7,7 +7,9 @@ import java.util.BitSet;
 
 import javax.swing.Timer;
 
-import controller.util.Iterator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,16 +21,21 @@ import javafx.scene.layout.Pane;
 import model.players.Player;
 import model.shapes.interfaces.Shape;
 
+
 public class MainController {
 
 	@FXML
 	private Pane paneFXid;
 
+
 	private final BitSet keyboardBitSet = new BitSet();
 	private static final int KEYBOARD_MOVEMENT_DELTA = 25;
+	private Logger logger;
 
 	@FXML
 	public void initialize() {
+	    logger = LogManager.getLogger();
+	    logger.debug("Hello");
 		final ImageView player1 = createP1();
 		final ImageView player2 = createP2();
 		generateStars();
@@ -105,23 +112,21 @@ public class MainController {
 
 		final ImageView[] imageView = new ImageView[4];
 
-		final PlatesPool platesPool = new PlatesPool();
-		final Iterator iterator = platesPool.getIterator();
 		for (int i = 0; i < 4; i++) {
-			if (iterator.hasNext()) {
-				final Shape star = (Shape) iterator.next();
-				final BufferedImage starImage = star.getImage();
-				final Image image = SwingFXUtils.toFXImage(starImage, null);
+			final PlatesPool platesPool = new PlatesPool();
+			final Shape star = platesPool.getPlate();
+			final BufferedImage starImage = star.getImage();
+			final Image image = SwingFXUtils.toFXImage(starImage, null);
 
-				final ImageView dispaly = new ImageView(image);
-				dispaly.setFitHeight(50);
-				dispaly.setFitWidth(50);
-				dispaly.setX(50 + (i * 100));
-				dispaly.setY(-50);
-				imageView[i] = dispaly;
-				paneFXid.getChildren().add(imageView[i]);
-			}
+			final ImageView dispaly = new ImageView(image);
+			dispaly.setFitHeight(50);
+			dispaly.setFitWidth(50);
+			dispaly.setX(50 + (i * 100));
+			dispaly.setY(-50);
+			imageView[i] = dispaly;
+			paneFXid.getChildren().add(imageView[i]);
 		}
+
 		final Timer timer = new Timer(30, new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
