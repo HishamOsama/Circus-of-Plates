@@ -95,19 +95,16 @@ public class MainController {
 				keyboardBitSet.set(event.getCode().ordinal(), true);
 				for (final KeyCode keyCode : KeyCode.values()) {
 					if (keyboardBitSet.get(keyCode.ordinal())) {
-						if (keyCode == KeyCode.RIGHT) {
+						if (keyCode == KeyCode.RIGHT  && player1.getX()<1050) {
 							player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
-							logger.debug("Player 1 : " + player1.getX());
-							
 						}
-						if (keyCode == KeyCode.LEFT) {
+						if (keyCode == KeyCode.LEFT && player1.getX()>0) {
 							player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
-							logger.debug("Player 1 : " + player1.getX());
 						}
-						if (keyCode == KeyCode.D) {
+						if (keyCode == KeyCode.D  && player2.getX()<1050) {
 							player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
 						}
-						if (keyCode == KeyCode.A) {
+						if (keyCode == KeyCode.A && player2.getX()>0) {
 							player2.setX(player2.getX() - KEYBOARD_MOVEMENT_DELTA);
 						}
 					}
@@ -153,7 +150,7 @@ public class MainController {
 			final ImageView dispaly = new ImageView(image);
 			dispaly.setFitHeight(50);
 			dispaly.setFitWidth(50);
-			dispaly.setX(50 + (i * 100));
+			dispaly.setX(50 + (i * 20));
 			dispaly.setY(-50);
 			imageView[i] = dispaly;
 			paneFXid.getChildren().add(imageView[i]);
