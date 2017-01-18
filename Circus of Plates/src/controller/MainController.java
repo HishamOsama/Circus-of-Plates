@@ -7,6 +7,7 @@ import java.util.BitSet;
 
 import javax.swing.Timer;
 
+import controller.util.Iterator;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ public class MainController {
 	@FXML
 	private Pane paneFXid;
 
-	private BitSet keyboardBitSet = new BitSet();
+	private final BitSet keyboardBitSet = new BitSet();
 	private static final int KEYBOARD_MOVEMENT_DELTA = 25;
 
 	@FXML
@@ -37,9 +38,9 @@ public class MainController {
 
 	private ImageView createP1() {
 
-		Player player1 = new Player("Clown1.png");
-		BufferedImage image = player1.getImage();
-		ImageView imageView = convertImage(image);
+		final Player player1 = new Player("Clown1.png");
+		final BufferedImage image = player1.getImage();
+		final ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(400);
@@ -49,9 +50,9 @@ public class MainController {
 	}
 
 	private ImageView createP2() {
-		Player player2 = new Player("Clown2.png");
-		BufferedImage image = player2.getImage();
-		ImageView imageView = convertImage(image);
+		final Player player2 = new Player("Clown2.png");
+		final BufferedImage image = player2.getImage();
+		final ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(100);
@@ -60,14 +61,14 @@ public class MainController {
 		return imageView;
 	}
 
-	private void move(Pane pane, final ImageView player1, final ImageView player2) {
+	private void move(final Pane pane, final ImageView player1, final ImageView player2) {
 
 		pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(final KeyEvent event) {
 
 				keyboardBitSet.set(event.getCode().ordinal(), true);
-				for (KeyCode keyCode : KeyCode.values()) {
+				for (final KeyCode keyCode : KeyCode.values()) {
 					if (keyboardBitSet.get(keyCode.ordinal())) {
 						if (keyCode == KeyCode.RIGHT) {
 							player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
@@ -90,7 +91,7 @@ public class MainController {
 
 		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(final KeyEvent event) {
 				keyboardBitSet.set(event.getCode().ordinal(), false);
 			}
 		});
@@ -102,25 +103,28 @@ public class MainController {
 	// Setting Stars initially
 	private void generateStars() {
 
-		ImageView[] imageView = new ImageView[4];
+		final ImageView[] imageView = new ImageView[4];
 
+		final PlatesPool platesPool = new PlatesPool();
+		final Iterator iterator = platesPool.getIterator();
 		for (int i = 0; i < 4; i++) {
-			PlatesPool platesPool = new PlatesPool();
-			Shape star = platesPool.getPlate();
-			BufferedImage starImage = star.getImage();
-			Image image = SwingFXUtils.toFXImage(starImage, null);
+			if (iterator.hasNext()) {
+				final Shape star = (Shape) iterator.next();
+				final BufferedImage starImage = star.getImage();
+				final Image image = SwingFXUtils.toFXImage(starImage, null);
 
-			ImageView dispaly = new ImageView(image);
-			dispaly.setFitHeight(50);
-			dispaly.setFitWidth(50);
-			dispaly.setX(50 + (i * 100));
-			dispaly.setY(-50);
-			imageView[i] = dispaly;
-			paneFXid.getChildren().add(imageView[i]);
+				final ImageView dispaly = new ImageView(image);
+				dispaly.setFitHeight(50);
+				dispaly.setFitWidth(50);
+				dispaly.setX(50 + (i * 100));
+				dispaly.setY(-50);
+				imageView[i] = dispaly;
+				paneFXid.getChildren().add(imageView[i]);
+			}
 		}
-
-		Timer timer = new Timer(30, new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		final Timer timer = new Timer(30, new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent e) {
 				for (int i = 0; i < 4; i++) {
 					imageView[i].setY(imageView[i].getY() + 2);
 				}
@@ -132,10 +136,10 @@ public class MainController {
 
 	}
 
-	private ImageView convertImage(BufferedImage image) {
-		Image imageF = SwingFXUtils.toFXImage(image, null);
+	private ImageView convertImage(final BufferedImage image) {
+		final Image imageF = SwingFXUtils.toFXImage(image, null);
 
-		ImageView dispaly = new ImageView(imageF);
+		final ImageView dispaly = new ImageView(imageF);
 
 		return dispaly;
 	}
