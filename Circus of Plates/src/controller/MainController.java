@@ -140,21 +140,10 @@ public class MainController {
 	// Setting Stars initially
 	private void generateStars() {
 	    
-//		final ShapesMovements[] imageView = new ShapesMovements[4];
-//		final PlatesPool platesPool = new PlatesPool();
-//		for (int i = 0; i < 4; i++) {		
-//			final Shape star = platesPool.getPlate();
-//			imageView[i] = new ShapesMovements(star);
-//			ImageView tmp = imageView[i].getImageView();
-//			tmp.setFitHeight(50);
-//			tmp.setFitWidth(50);
-//			tmp.setX(50+i*50);
-//			tmp.setY(-50);
-//			paneFXid.getChildren().add(tmp);
-//			imageView[i].start("Thread-"+i);
-//		}
 	    ShapesMovements shape = new ShapesMovements(paneFXid);
 	    shape.start("Naggar :* ");
+
+
 	}
     private ImageView convertImage(final BufferedImage image) {
         final Image imageF = SwingFXUtils.toFXImage(image, null);

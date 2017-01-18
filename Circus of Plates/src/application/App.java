@@ -2,12 +2,15 @@ package application;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import model.shapes.dynamicloading.Loader;
 import model.shapes.interfaces.Shape;
@@ -32,7 +35,6 @@ public class App extends Application {
         }
 
 		final Parent root = FXMLLoader.load(getClass().getResource("/view/GameDesign.fxml"));
-		// Music...
 		
 		primaryStage.setTitle("Game");
 		primaryStage.setScene(new Scene(root));
