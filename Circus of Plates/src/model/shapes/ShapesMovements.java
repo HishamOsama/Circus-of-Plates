@@ -3,15 +3,18 @@ package model.shapes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import javax.swing.Timer;
 
+import controller.PlateFetching;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import model.players.PlayerIF;
 import model.shapes.interfaces.Shape;
 
 public class ShapesMovements extends ImageView implements Runnable {
@@ -20,9 +23,12 @@ public class ShapesMovements extends ImageView implements Runnable {
     private static final int delta = 2;
     private ImageView image;
     private Pane fx;
+    private PlateFetching player1, player2;
 
-    public ShapesMovements(Pane fx) {
+    public ShapesMovements(Pane fx, PlayerIF player1, PlayerIF player2) {
         this.fx = fx;
+        this.player1 = new PlateFetching(player1);
+        this.player2 = new PlateFetching(player2);
     }
 
     public Color getColor() {
@@ -33,7 +39,7 @@ public class ShapesMovements extends ImageView implements Runnable {
 
         Thread mainPlateThread = new Thread("Main Plate Thread") {
             private int counter = 0;
-            PlatesPool platesPool = new PlatesPool();
+            private PlatesPool platesPool = new PlatesPool();
 
             @Override
             public void run() {
@@ -48,11 +54,25 @@ public class ShapesMovements extends ImageView implements Runnable {
                             image.setX(50 + counter * 50);
                             image.setY(-50);
                             fx.getChildren().add(image);
-                            final Timer timer = new Timer(1000, new ActionListener() {
+                            boolean moving = true;
+                            final Timer timer = new Timer(50, new ActionListener() {
+
+                                private boolean isMoving = moving;
+
                                 @Override
                                 public void actionPerformed(final ActionEvent e) {
-                                    for (int i = 0; i < 30; i++) {
+
+                                    if (isMoving) {
                                         image.setY(image.getY() + delta);
+                          
+                                        if (!player1.CheckMe(3*image.getX()/2.0, 2.0*image.getY())) {
+                                            System.out.println("Yes1");
+                                            isMoving = false;
+
+                                        } else if (!player2.CheckMe(3*image.getX()/2.0, 2.0*image.getY())) {
+                                            System.out.println("Yes2");
+                                            isMoving = false;
+                                        }
                                     }
 
                                 }
