@@ -23,6 +23,7 @@ import model.players.Player1;
 import model.players.Player2;
 import model.players.PlayerIF;
 import model.shapes.PlatesPool;
+import model.shapes.ShapesMovements;
 import model.shapes.interfaces.Shape;
 
 
@@ -95,19 +96,16 @@ public class MainController {
 				keyboardBitSet.set(event.getCode().ordinal(), true);
 				for (final KeyCode keyCode : KeyCode.values()) {
 					if (keyboardBitSet.get(keyCode.ordinal())) {
-						if (keyCode == KeyCode.RIGHT) {
+						if (keyCode == KeyCode.RIGHT  && player1.getX()<1050) {
 							player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
-							logger.debug("Player 1 : " + player1.getX());
-							
 						}
-						if (keyCode == KeyCode.LEFT) {
+						if (keyCode == KeyCode.LEFT && player1.getX()>0) {
 							player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
-							logger.debug("Player 1 : " + player1.getX());
 						}
-						if (keyCode == KeyCode.D) {
+						if (keyCode == KeyCode.D  && player2.getX()<1050) {
 							player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
 						}
-						if (keyCode == KeyCode.A) {
+						if (keyCode == KeyCode.A && player2.getX()>0) {
 							player2.setX(player2.getX() - KEYBOARD_MOVEMENT_DELTA);
 						}
 					}
@@ -141,44 +139,28 @@ public class MainController {
 
 	// Setting Stars initially
 	private void generateStars() {
-
-		final ImageView[] imageView = new ImageView[4];
-
-		for (int i = 0; i < 4; i++) {
-			final PlatesPool platesPool = new PlatesPool();
-			final Shape star = platesPool.getPlate();
-			final BufferedImage starImage = star.getImage();
-			final Image image = SwingFXUtils.toFXImage(starImage, null);
-
-			final ImageView dispaly = new ImageView(image);
-			dispaly.setFitHeight(50);
-			dispaly.setFitWidth(50);
-			dispaly.setX(50 + (i * 100));
-			dispaly.setY(-50);
-			imageView[i] = dispaly;
-			paneFXid.getChildren().add(imageView[i]);
-		}
-
-		final Timer timer = new Timer(30, new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				for (int i = 0; i < 4; i++) {
-					imageView[i].setY(imageView[i].getY() + 2);
-				}
-
-			}
-		});
-
-		timer.start();
-
+	    
+//		final ShapesMovements[] imageView = new ShapesMovements[4];
+//		final PlatesPool platesPool = new PlatesPool();
+//		for (int i = 0; i < 4; i++) {		
+//			final Shape star = platesPool.getPlate();
+//			imageView[i] = new ShapesMovements(star);
+//			ImageView tmp = imageView[i].getImageView();
+//			tmp.setFitHeight(50);
+//			tmp.setFitWidth(50);
+//			tmp.setX(50+i*50);
+//			tmp.setY(-50);
+//			paneFXid.getChildren().add(tmp);
+//			imageView[i].start("Thread-"+i);
+//		}
+	    ShapesMovements shape = new ShapesMovements(paneFXid);
+	    shape.start("Naggar :* ");
 	}
+    private ImageView convertImage(final BufferedImage image) {
+        final Image imageF = SwingFXUtils.toFXImage(image, null);
 
-	private ImageView convertImage(final BufferedImage image) {
-		final Image imageF = SwingFXUtils.toFXImage(image, null);
+        final ImageView dispaly = new ImageView(imageF);
 
-		final ImageView dispaly = new ImageView(imageF);
-
-		return dispaly;
-	}
-
+        return dispaly;
+    }
 }

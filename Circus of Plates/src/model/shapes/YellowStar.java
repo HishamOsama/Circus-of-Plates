@@ -1,8 +1,9 @@
 package model.shapes;
 
-import java.awt.Color;
+
 import java.io.File;
 
+import javafx.scene.paint.Color;
 import model.shapes.util.ImageConstants;
 import model.shapes.util.PlatesFactory;
 

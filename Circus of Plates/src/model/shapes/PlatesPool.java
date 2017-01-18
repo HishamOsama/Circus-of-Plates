@@ -30,8 +30,12 @@ public class PlatesPool implements Container{
 	}
 
 	public Shape getPlate() {
-		if (plates.size() < indexOfCurrentServed) {
-			throw new RuntimeException();
+		if (indexOfCurrentServed <= -1) {
+		    final PlatesFactory factory = PlatesFactory.getInstance();
+		    for (final String key : factory.getRegisteredShapes()) {
+		        final Shape requestedPlate = factory.getShape(key);
+		        return requestedPlate;
+		    }
 		}
 		final Shape requestedPlate = plates.remove(indexOfCurrentServed--);
 		return requestedPlate;
