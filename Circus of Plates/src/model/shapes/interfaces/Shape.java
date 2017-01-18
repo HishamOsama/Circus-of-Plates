@@ -14,6 +14,7 @@ public abstract class Shape {
 	protected BufferedImage image;
 	protected String mainPath = "";
 	protected Color shapeColor;
+	protected boolean moving;
 
 	public Shape() {
 		final File file = new File(System.getProperty("user.dir")  + File.separator);
@@ -23,6 +24,7 @@ public abstract class Shape {
 				mainPath = file.getAbsolutePath() + File.separator + directory;
 			}
 		}
+		moving = true;
 	}
 
 	public void loadImage() {

@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.BitSet;
 
 import javax.swing.Timer;
@@ -18,8 +17,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import model.players.Player;
+import model.players.Player1;
+import model.players.Player2;
+import model.players.PlayerIF;
 import model.shapes.PlatesPool;
 import model.shapes.interfaces.Shape;
 
@@ -35,6 +37,7 @@ public class MainController {
 
 	private final BitSet keyboardBitSet = new BitSet();
 	private static final int KEYBOARD_MOVEMENT_DELTA = 25;
+	private int[][] stacksCenters ;
 	private Logger logger;
 
 	@FXML
@@ -45,8 +48,8 @@ public class MainController {
         imageView.setImage(image);
         imageView.setFitWidth(1200);
         imageView.setFitHeight(700);
+       
         
-	
 	    logger = LogManager.getLogger();
 	    logger.debug("Hello");
 		final ImageView player1 = createP1();
@@ -58,25 +61,27 @@ public class MainController {
 
 	private ImageView createP1() {
 
-		final Player player1 = new Player("Clown1.png");
+		final PlayerIF player1 = new Player1();
 		final BufferedImage image = player1.getImage();
 		final ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
-		imageView.setX(400);
-		imageView.setY(520);
+		imageView.setX(400);//400
+		imageView.setY(520);//520
+		player1.setPoints(imageView.getX(), imageView.getY(),150);
 		paneFXid.getChildren().add(imageView);
 		return imageView;
 	}
 
 	private ImageView createP2() {
-		final Player player2 = new Player("Clown2.png");
+		final PlayerIF player2 = new Player2();
 		final BufferedImage image = player2.getImage();
 		final ImageView imageView = convertImage(image);
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(100);
 		imageView.setY(520);
+		player2.setPoints(imageView.getX(), imageView.getY(),150);
 		paneFXid.getChildren().add(imageView);
 		return imageView;
 	}
@@ -92,9 +97,12 @@ public class MainController {
 					if (keyboardBitSet.get(keyCode.ordinal())) {
 						if (keyCode == KeyCode.RIGHT) {
 							player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
+							logger.debug("Player 1 : " + player1.getX());
+							
 						}
 						if (keyCode == KeyCode.LEFT) {
 							player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
+							logger.debug("Player 1 : " + player1.getX());
 						}
 						if (keyCode == KeyCode.D) {
 							player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
@@ -107,6 +115,17 @@ public class MainController {
 
 			}
 
+		});
+		
+		pane.setOnMousePressed(new EventHandler<MouseEvent>(){
+
+            @Override
+            public void handle(MouseEvent event) {
+                // TODO Auto-generated method stub
+                logger.debug("Current X: " +event.getScreenX());
+                logger.debug("Current Y : "+event.getScreenY());
+            }
+		    
 		});
 
 		pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
