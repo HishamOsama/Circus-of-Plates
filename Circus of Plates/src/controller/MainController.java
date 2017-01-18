@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.BitSet;
 
 import javax.swing.Timer;
@@ -27,6 +28,9 @@ public class MainController {
 
 	@FXML
 	private Pane paneFXid;
+	
+	@FXML
+	private ImageView imageView;
 
 
 	private final BitSet keyboardBitSet = new BitSet();
@@ -35,6 +39,14 @@ public class MainController {
 
 	@FXML
 	public void initialize() {
+		// Background...
+		//String path = System.getProperty("user.dir")  + File.separator + "Resources" + File.separator + "wallpaper.jpeg";
+		Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
+        imageView.setImage(image);
+        imageView.setFitWidth(1200);
+        imageView.setFitHeight(700);
+        
+	
 	    logger = LogManager.getLogger();
 	    logger.debug("Hello");
 		final ImageView player1 = createP1();
@@ -52,7 +64,7 @@ public class MainController {
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(400);
-		imageView.setY(500);
+		imageView.setY(520);
 		paneFXid.getChildren().add(imageView);
 		return imageView;
 	}
@@ -64,7 +76,7 @@ public class MainController {
 		imageView.setFitHeight(150);
 		imageView.setFitWidth(150);
 		imageView.setX(100);
-		imageView.setY(500);
+		imageView.setY(520);
 		paneFXid.getChildren().add(imageView);
 		return imageView;
 	}

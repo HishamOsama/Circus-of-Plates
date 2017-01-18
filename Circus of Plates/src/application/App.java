@@ -32,10 +32,13 @@ public class App extends Application {
         }
 
 		final Parent root = FXMLLoader.load(getClass().getResource("/view/GameDesign.fxml"));
+		// Music...
+		
 		primaryStage.setTitle("Game");
 		primaryStage.setScene(new Scene(root));
-		primaryStage.setMinWidth(700);
+		primaryStage.setMinWidth(1200);
 		primaryStage.setMinHeight(700);
+		primaryStage.setResizable(false);
 		primaryStage.show();
 
 	}
