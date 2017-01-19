@@ -102,13 +102,13 @@ public class ShapesMovements extends ImageView implements Runnable {
 
     public void move(ImageView image, int origin) {
         if (origin == 1000) {
-            if (image.getX() > 600) {
-                image.setY((image.getX() - 600) * (image.getX() - 600));
+            if (image.getX() < 600) {
+                image.setY(delta*delta+image.getY());
             }
             image.setX(image.getX() - delta);
         } else {
-            if (image.getX() < 400) {
-                image.setY((image.getX() - 400) * (image.getX() - 400));
+            if (image.getX() > 400) {
+                image.setY(delta*delta+image.getY());
             }
             image.setX(image.getX() + delta);
         }
