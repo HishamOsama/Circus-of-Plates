@@ -20,7 +20,6 @@ public class ShapesMovements extends ImageView implements Runnable {
 
     private Shape shape;
     private static final int delta = 2;
-    private ImageView image;
     private Pane fx;
     private PlateFetching player1, player2;
 
@@ -39,19 +38,27 @@ public class ShapesMovements extends ImageView implements Runnable {
         Thread mainPlateThread = new Thread("Main Plate Thread") {
             private int counter = 0;
             private PlatesPool platesPool = new PlatesPool();
+            private int lastOrign = 0;
 
             @Override
             public void run() {
                 while (true) {
+
                     Thread thread = new Thread("Plate" + counter) {
+
                         @Override
                         public void run() {
                             Shape shape = platesPool.getPlate();
+
+                            lastOrign = 1000 - lastOrign;
+
+                            shape.setOrigin(lastOrign);
+
                             ImageView image = convertImage(shape.getImage());
                             image.setFitHeight(50);
                             image.setFitWidth(50);
-                            image.setX(50 + counter * 50);
-                            image.setY(-50);
+                            image.setX(lastOrign);
+                            image.setY(60);
                             fx.getChildren().add(image);
                             boolean moving = true;
                             final Timer timer = new Timer(50, new ActionListener() {
@@ -62,13 +69,13 @@ public class ShapesMovements extends ImageView implements Runnable {
                                 public void actionPerformed(final ActionEvent e) {
 
                                     if (isMoving) {
-                                        image.setY(image.getY() + delta);
-                          
-                                        if (!player1.CheckMe((int)image.getX(),(int) image.getY())) {
+                                        move(image, shape.getOrigin());
+
+                                        if (!player1.CheckMe((int) image.getX(), (int) image.getY())) {
                                             System.out.println("Yes1");
                                             isMoving = false;
 
-                                        } 
+                                        }
                                     }
 
                                 }
@@ -93,12 +100,18 @@ public class ShapesMovements extends ImageView implements Runnable {
         mainPlateThread.start();
     }
 
-    public ImageView getImageView() {
-        return image;
-    }
-
-    public void move() {
-        image.setY(image.getY() + delta);
+    public void move(ImageView image, int origin) {
+        if (origin == 1000) {
+            if (image.getX() > 600) {
+                image.setY((image.getX() - 600) * (image.getX() - 600));
+            }
+            image.setX(image.getX() - delta);
+        } else {
+            if (image.getX() < 400) {
+                image.setY((image.getX() - 400) * (image.getX() - 400));
+            }
+            image.setX(image.getX() + delta);
+        }
     }
 
     private ImageView convertImage(final BufferedImage image) {

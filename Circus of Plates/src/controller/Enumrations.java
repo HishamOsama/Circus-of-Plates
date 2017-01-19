@@ -8,5 +8,7 @@ public class Enumrations {
     public enum players{
         player1,player2;
     }
-
+//    public enum origin{
+//        right,left;
+//    }
 }
