@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.Timer;
 
 import controller.PlateFetching;
+import controller.PlateFetching.CheckResult;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -21,12 +22,12 @@ public class ShapesMovements extends ImageView implements Runnable {
     private Shape shape;
     private static final int delta = 2;
     private Pane fx;
-    private PlateFetching player1, player2;
+    private PlayerIF player1, player2;
 
     public ShapesMovements(Pane fx, PlayerIF player1, PlayerIF player2) {
         this.fx = fx;
-        this.player1 = new PlateFetching(player1);
-        this.player2 = new PlateFetching(player2);
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public Color getColor() {
@@ -70,12 +71,12 @@ public class ShapesMovements extends ImageView implements Runnable {
 
                                     if (isMoving) {
                                         move(image, shape.getOrigin());
-
-                                        if (!player1.CheckMe((int) image.getX(), (int) image.getY())) {
-                                            System.out.println("Yes1");
+                                        CheckResult tmp = player1.check((int) image.getX(), (int) image.getY());
+                                        if (!tmp.getResult()) {
                                             isMoving = false;
-
+                                            player1.receivePlate(tmp.getIndex(), shape, image);
                                         }
+
                                     }
 
                                 }
@@ -97,18 +98,18 @@ public class ShapesMovements extends ImageView implements Runnable {
             }
         };
         mainPlateThread.setDaemon(true);
-        mainPlateThread.start();
+        Platform.runLater(mainPlateThread);
     }
 
     public void move(ImageView image, int origin) {
         if (origin == 1000) {
             if (image.getX() < 600) {
-                image.setY(delta*delta+image.getY());
+                image.setY(delta * delta + image.getY());
             }
             image.setX(image.getX() - delta);
         } else {
             if (image.getX() > 400) {
-                image.setY(delta*delta+image.getY());
+                image.setY(delta * delta + image.getY());
             }
             image.setX(image.getX() + delta);
         }
