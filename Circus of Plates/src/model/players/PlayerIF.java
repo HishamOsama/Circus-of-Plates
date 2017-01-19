@@ -13,6 +13,7 @@ public abstract class PlayerIF {
     protected BufferedImage image;
     protected String imageName;
     protected float[][] stacksCenter;
+    protected int[][] playerPosition;
 
     
     
@@ -22,6 +23,10 @@ public abstract class PlayerIF {
 
     public float[][] getStacksCenters() {
         return stacksCenter;
+    }
+    
+    public int[][] getPlayerPosition() {
+        return playerPosition;
     }
 
     public void setPoints(double x, double y, float hight) {
@@ -55,6 +60,11 @@ public abstract class PlayerIF {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void playerPosition(int x,int y){
+        playerPosition[0][0] = x;
+        playerPosition[0][1] = y;
     }
 
 }

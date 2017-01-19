@@ -10,23 +10,35 @@ public class PlateFetching {
         this.player = player;
     }
 
-    public boolean CheckMe(double x, double y) {
-        float[][] stackCenters = player.getStacksCenters();
-        for (int i = 0; i < stackCenters.length; i++) {
-            float centerX = stackCenters[i][0];
-            float centerY = stackCenters[i][1];
-            if (Math.abs(centerX - x) <= 30) {
-                if (Math.abs(centerY - y) <= 5) {
+    public boolean CheckMe(int x, int y) {
+        int[][] playerPosition = player.getPlayerPosition();
+            int centerX = playerPosition[0][0];
+            int centerY = playerPosition[0][1];
+            // Checking Right Hand...
+            if (x-centerX > 110 - 15 && x-centerX < 110 + 15 ) {
+                if (y - centerY > 0 - 5 && y-centerY < 0 + 5 ) {
+                    System.out.println("Yes1");
                     System.out.println("CenterX :"+ centerX);
                     System.out.println("CenterY :"+ centerY);
                     System.out.println("Given x :"+ x);
                     System.out.println("Given y :"+ y);
-                    //player.updateHight(50, i);
                     return false;
                 }
             }
+            // Checking Left Hand...
+            if (centerX - x > 15 - 15 && centerX -x < 15 + 15 ) {
+                if (y - centerY > 35 - 5 && y - centerY < 35 + 5 ) {
+                    System.out.println("Yes2");
+                    System.out.println("CenterX :"+ centerX);
+                    System.out.println("CenterY :"+ centerY);
+                    System.out.println("Given x :"+ x);
+                    System.out.println("Given y :"+ y);
+                    return false;
+                }
+            }
+            
 
-        }
+        
         return true;
     }
 

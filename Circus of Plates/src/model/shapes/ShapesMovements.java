@@ -3,7 +3,6 @@ package model.shapes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -65,14 +64,11 @@ public class ShapesMovements extends ImageView implements Runnable {
                                     if (isMoving) {
                                         image.setY(image.getY() + delta);
                           
-                                        if (!player1.CheckMe(3*image.getX()/2.0, 2.0*image.getY())) {
+                                        if (!player1.CheckMe((int)image.getX(),(int) image.getY())) {
                                             System.out.println("Yes1");
                                             isMoving = false;
 
-                                        } else if (!player2.CheckMe(3*image.getX()/2.0, 2.0*image.getY())) {
-                                            System.out.println("Yes2");
-                                            isMoving = false;
-                                        }
+                                        } 
                                     }
 
                                 }

@@ -8,6 +8,7 @@ public class Player2 extends PlayerIF {
         imageName = "Clown2.png";
         imagePath = System.getProperty("user.dir") + File.separator + "ClownImages" + File.separator + imageName;
         stacksCenter = new float[][] {{21, -61}, {21 + 104, -73}};
+        playerPosition = new int[][]{{100,520}};
         loadImage();
     }
 
