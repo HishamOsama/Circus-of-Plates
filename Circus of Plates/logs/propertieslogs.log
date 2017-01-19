@@ -2605,4 +2605,17 @@
 [DEBUG] 2017-01-19 14:52:10.321 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-19 15:00:36.010 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-19 15:01:32.231 [JavaFX Application Thread] MainController - Hello
+<<<<<<< HEAD
+[DEBUG] 2017-01-19 15:17:59.547 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 15:46:28.445 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 15:59:54.130 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 16:33:20.775 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 16:42:31.085 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 16:49:39.209 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 16:50:47.237 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 17:22:10.820 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 17:23:24.779 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 17:23:44.675 [JavaFX Application Thread] MainController - Hello
+=======
 [DEBUG] 2017-01-19 17:06:17.238 [JavaFX Application Thread] MainController - Hello
+>>>>>>> branch 'master' of https://Hisham-Osama@bitbucket.org/Hisham-Osama/circus-of-plates.git
