@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.util.Container;
 import controller.util.Iterator;
@@ -34,10 +35,12 @@ public class PlatesPool implements Container{
 		    final PlatesFactory factory = PlatesFactory.getInstance();
 		    for (final String key : factory.getRegisteredShapes()) {
 		        final Shape requestedPlate = factory.getShape(key);
+		        requestedPlate.setDelayTime(new Random().nextInt(100));
 		        return requestedPlate;
 		    }
 		}
 		final Shape requestedPlate = plates.remove(indexOfCurrentServed--);
+		requestedPlate.setDelayTime(new Random().nextInt(100));
 		return requestedPlate;
 	}
 

@@ -10,37 +10,43 @@ import javafx.scene.paint.Color;
 
 public abstract class Shape {
 
-	protected String imagePath;
-	protected File imageFile;
-	protected BufferedImage image;
-	protected String mainPath = "";
-	protected Color shapeColor;
-	public boolean moving;
+    protected String imagePath;
+    protected File imageFile;
+    protected BufferedImage image;
+    protected String mainPath = "";
+    protected Color shapeColor;
+    protected int delayTime;
 
-	public Shape() {
-		final File file = new File(System.getProperty("user.dir")  + File.separator);
-		final String[] directories = file.list();
-		for (final String directory : directories) {
-			if (directory.equals("ShapeImages")) {
-				mainPath = file.getAbsolutePath() + File.separator + directory;
-			}
-		}
-		moving = true;
-	}
+    public Shape() {
+        final File file = new File(System.getProperty("user.dir") + File.separator);
+        final String[] directories = file.list();
+        for (final String directory : directories) {
+            if (directory.equals("ShapeImages")) {
+                mainPath = file.getAbsolutePath() + File.separator + directory;
+            }
+        }
+    }
 
-	public void loadImage() {
-		imageFile = new File(imagePath);
-		try {
-			image = ImageIO.read(imageFile);
-			System.out.println("Image Loaded Successfully");
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public int getDelayTime() {
+        return delayTime;
+    }
+    public void setDelayTime(int delayTime){
+        this.delayTime = delayTime;
+    }
 
-	public Color getColor() {
-		return shapeColor;
-	}
+    public void loadImage() {
+        imageFile = new File(imagePath);
+        try {
+            image = ImageIO.read(imageFile);
+            System.out.println("Image Loaded Successfully");
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Color getColor() {
+        return shapeColor;
+    }
 
     public BufferedImage getImage() {
         return image;

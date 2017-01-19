@@ -22,9 +22,6 @@ import javafx.scene.layout.Pane;
 import model.players.Player1;
 import model.players.Player2;
 import model.players.PlayerIF;
-import model.shapes.PlatesPool;
-import model.shapes.ShapesMovements;
-import model.shapes.interfaces.Shape;
 
 public class MainController {
 
@@ -143,8 +140,8 @@ public class MainController {
     // Setting Stars initially
     private void generateStars() {
 
-        ShapesMovements shape = new ShapesMovements(paneFXid, player1, player2);
-        shape.start("Naggar :* ");
+        PoolThread x = new PoolThread(paneFXid);
+        x.start();
 
     }
 
