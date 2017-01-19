@@ -2603,3 +2603,5 @@
 [DEBUG] 2017-01-19 14:44:12.985 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-19 14:50:24.765 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-19 14:52:10.321 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 15:00:36.010 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 15:01:32.231 [JavaFX Application Thread] MainController - Hello
