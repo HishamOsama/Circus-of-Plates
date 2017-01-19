@@ -23,6 +23,7 @@ public class ShapesMovements extends ImageView implements Runnable {
     private static final int delta = 2;
     private Pane fx;
     private PlayerIF player1, player2;
+    private int counter2=0;
 
     public ShapesMovements(Pane fx, PlayerIF player1, PlayerIF player2) {
         this.fx = fx;
@@ -35,70 +36,77 @@ public class ShapesMovements extends ImageView implements Runnable {
     }
 
     public void start(String name) {
-
-        Thread mainPlateThread = new Thread("Main Plate Thread") {
-            private int counter = 0;
-            private PlatesPool platesPool = new PlatesPool();
-            private int lastOrign = 0;
-
-            @Override
+        Thread bigger = new Thread() {
             public void run() {
-                while (true) {
+                Thread mainPlateThread = new Thread("Main Plate Thread") {
+                    private int counter = 0;
+                    private PlatesPool platesPool = new PlatesPool();
+                    private int lastOrign = 0;
+                    
 
-                    Thread thread = new Thread("Plate" + counter) {
+                    @Override
+                    public void run() {
+                        while (true) {
 
-                        @Override
-                        public void run() {
-                            Shape shape = platesPool.getPlate();
-
-                            lastOrign = 1000 - lastOrign;
-
-                            shape.setOrigin(lastOrign);
-
-                            ImageView image = convertImage(shape.getImage());
-                            image.setFitHeight(50);
-                            image.setFitWidth(50);
-                            image.setX(lastOrign);
-                            image.setY(60);
-                            fx.getChildren().add(image);
-                            boolean moving = true;
-                            final Timer timer = new Timer(50, new ActionListener() {
-
-                                private boolean isMoving = moving;
+                            Thread thread = new Thread("Plate" + counter) {
 
                                 @Override
-                                public void actionPerformed(final ActionEvent e) {
+                                public void run() {
+                                    Shape shape = platesPool.getPlate();
 
-                                    if (isMoving) {
-                                        move(image, shape.getOrigin());
-                                        CheckResult tmp = player1.check((int) image.getX(), (int) image.getY());
-                                        if (!tmp.getResult()) {
-                                            isMoving = false;
-                                            player1.receivePlate(tmp.getIndex(), shape, image);
+                                    lastOrign = 1000 - lastOrign;
+
+                                    shape.setOrigin(lastOrign);
+
+                                    ImageView image = convertImage(shape.getImage());
+                                    image.setFitHeight(50);
+                                    image.setFitWidth(50);
+                                    image.setX(lastOrign);
+                                    image.setY(60);
+                                    fx.getChildren().add(image);
+                                    //System.out.println("In ShapesMovement #"+(counter2++)+" Action...");
+                                    boolean moving = true;
+                                    final Timer timer = new Timer(50, new ActionListener() {
+
+                                        private boolean isMoving = moving;
+
+                                        @Override
+                                        public void actionPerformed(final ActionEvent e) {
+
+                                            if (isMoving) {
+                                                move(image, shape.getOrigin());
+                                                CheckResult tmp = player1.check((int) image.getX(), (int) image.getY());
+                                                if (!tmp.getResult()) {
+                                                    isMoving = false;
+                                                    player1.receivePlate(tmp.getIndex(), shape, image);
+                                                }
+
+                                            }
+
                                         }
+                                    });
 
-                                    }
-
+                                    timer.start();
                                 }
-                            });
-
-                            timer.start();
+                            };
+                            thread.setDaemon(true);
+                            Platform.runLater(thread);
+                            counter = (counter + 1) % 1000;
+                            try {
+                                sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            // break;
                         }
-                    };
-                    thread.setDaemon(true);
-                    Platform.runLater(thread);
-                    counter = (counter + 1) % 1000;
-                    try {
-                        sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
-                    // break;
-                }
-            }
+                };
+                mainPlateThread.setDaemon(true);
+                mainPlateThread.start();
+            };
         };
-        mainPlateThread.setDaemon(true);
-        Platform.runLater(mainPlateThread);
+        bigger.setDaemon(true);
+        bigger.start();
     }
 
     public void move(ImageView image, int origin) {

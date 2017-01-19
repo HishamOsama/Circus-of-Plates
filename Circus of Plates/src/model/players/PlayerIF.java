@@ -24,6 +24,8 @@ public abstract class PlayerIF {
     protected PlateFetching checker;
 
     public PlayerIF() {
+        
+        
         stacks = new PlayersStack[2];
         initialize();
         checker = new PlateFetching(this);
@@ -31,7 +33,9 @@ public abstract class PlayerIF {
     public void initialize(){
         for(int i = 0 ; i < stacks.length;i++){
             stacks[i] = new PlayersStack(this, i);
+            stacks[i].start();
         }
+        
     }
 
     public void receivePlate(int index, Shape plate, ImageView image) {

@@ -1,10 +1,14 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
+import controller.util.StackRemover;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.players.PlayerIF;
 
@@ -84,11 +88,15 @@ public class PlayersStack implements Runnable {
                 platesToCheck[i] = plates.pop();
             }
             final boolean allSimilar = checkSimilarity(platesToCheck);
+            
             if (allSimilar) {
+                List<Node> nodesToRemove = new ArrayList<>();               
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
-                    images.remove(images.size() - 1);
+                    ImageView im = images.remove(images.size() - 1);
+                    nodesToRemove.add(im);
                 }
+                //StackRemover.remove(nodesToRemove);
                 updateScore();
             }
         }
@@ -122,38 +130,31 @@ public class PlayersStack implements Runnable {
     }
 
     public void start() {
-        bigThread = new Thread() {
-            public void run() {
-                if (thread == null) {
-                    thread = new Thread(this);
-                    thread.setDaemon(true);
-                    System.out.println("In PlayersStacks #"+(counter++)+" Action...");
-                    try {
-                        sleep(100);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-                Platform.runLater(thread);
-                thread.setDaemon(true);
-                Platform.runLater(thread);
-            }
-
-        };
-        bigThread.setDaemon(true);
-        bigThread.start();
+        if (thread == null) {
+            thread = new Thread(this);
+        }
+        thread.setDaemon(true);
+        thread.start();
 
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         // TODO Auto-generated method stub
         while (true) {
-            float[][] position = player.getStacksCenters();
+            int[][] position = player.getPlayerPosition();
             for (int i = 0; i < images.size(); i++) {
-                images.get(i).setX(position[index][0]);
-                images.get(i).setY(position[index][1] - 50 * i);
+                if (index == 0 || index == 1)
+                    images.get(i).setX(position[0][0] + 110);
+                images.get(i).setY(520 - (50 * i));
+                System.out.println("Image of Index : " + i + "\nX : " + images.get(i).getX() + "\n" + "Y: "
+                        + images.get(i).getY());
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
 

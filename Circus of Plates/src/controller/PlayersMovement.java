@@ -40,7 +40,7 @@ public class PlayersMovement extends ImageView implements Runnable {
                         @Override
                         public void run() {
                             while (true) {
-                                System.out.println("In PlayersMovments #" + (counter++) + " Action...");
+                                //System.out.println("In PlayersMovments #" + (counter++) + " Action...");
                                 move(fPane, (player1Image), (player2Image));
                                 try {
                                     sleep(100);
@@ -53,7 +53,7 @@ public class PlayersMovement extends ImageView implements Runnable {
                         }
                     };
                     thread.setDaemon(true);
-                    Platform.runLater(thread);
+                    thread.start();
                 }
             }
         };
@@ -73,21 +73,21 @@ public class PlayersMovement extends ImageView implements Runnable {
                     if (keyboardBitSet.get(keyCode.ordinal())) {
                         if (keyCode == KeyCode.RIGHT && player1.getX() < 1050) {
                             player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
-                            // PlayersMovement.this.player1.move(KEYBOARD_MOVEMENT_DELTA);
+                             PlayersMovement.this.player1.move(KEYBOARD_MOVEMENT_DELTA);
                             PlayersMovement.this.player1.playerPosition((int) player1.getX(), (int) player1.getY());
                         }
                         if (keyCode == KeyCode.LEFT && player1.getX() > 0) {
                             player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            // PlayersMovement.this.player1.move(-1*KEYBOARD_MOVEMENT_DELTA);
+                            PlayersMovement.this.player1.move(-1*KEYBOARD_MOVEMENT_DELTA);
                             PlayersMovement.this.player1.playerPosition((int) player1.getX(), (int) player1.getY());
                         }
                         if (keyCode == KeyCode.D && player2.getX() < 1050) {
                             player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
-                            // PlayersMovement.this.player2.move(KEYBOARD_MOVEMENT_DELTA);
+                             PlayersMovement.this.player2.move(KEYBOARD_MOVEMENT_DELTA);
                         }
                         if (keyCode == KeyCode.A && player2.getX() > 0) {
                             player2.setX(player2.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            // PlayersMovement.this.player2.move(-1*KEYBOARD_MOVEMENT_DELTA);
+                            PlayersMovement.this.player2.move(-1*KEYBOARD_MOVEMENT_DELTA);
                         }
                     }
                 }
