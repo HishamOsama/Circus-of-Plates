@@ -2588,3 +2588,11 @@
 [DEBUG] 2017-01-19 01:28:53.378 [JavaFX Application Thread] MainController - Current X: 890.0
 [DEBUG] 2017-01-19 01:28:53.379 [JavaFX Application Thread] MainController - Current Y : 101.0
 [DEBUG] 2017-01-19 01:29:13.634 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 12:30:52.360 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 12:32:38.726 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 13:33:36.260 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 13:37:15.830 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 13:38:45.151 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 13:40:25.934 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 13:43:21.778 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-19 14:03:04.372 [JavaFX Application Thread] MainController - Hello

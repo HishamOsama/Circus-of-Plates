@@ -1,30 +1,20 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.BitSet;
-
-import javax.swing.Timer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.players.Player1;
 import model.players.Player2;
 import model.players.PlayerIF;
-import model.shapes.PlatesPool;
 import model.shapes.ShapesMovements;
-import model.shapes.interfaces.Shape;
 
 public class MainController {
 
@@ -45,7 +35,7 @@ public class MainController {
         // Background...
         // String path = System.getProperty("user.dir") + File.separator +
         // "Resources" + File.separator + "wallpaper.jpeg";
-        Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
+        final Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
         imageView.setImage(image);
         imageView.setFitWidth(1200);
         imageView.setFitHeight(700);
@@ -54,8 +44,8 @@ public class MainController {
         logger.debug("Hello");
         final ImageView player1 = createP1();
         final ImageView player2 = createP2();
-        generateStars();
         move(paneFXid, player1, player2);
+        generateStars();
 
     }
 
@@ -86,64 +76,15 @@ public class MainController {
         return imageView;
     }
 
-    private void move(final Pane pane, final ImageView player1, final ImageView player2) {
-
-        pane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(final KeyEvent event) {
-
-                keyboardBitSet.set(event.getCode().ordinal(), true);
-                for (final KeyCode keyCode : KeyCode.values()) {
-                    if (keyboardBitSet.get(keyCode.ordinal())) {
-                        if (keyCode == KeyCode.RIGHT && player1.getX() < 1050) {
-                            player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
-                            MainController.this.player1.move(KEYBOARD_MOVEMENT_DELTA);
-                        }
-                        if (keyCode == KeyCode.LEFT && player1.getX() > 0) {
-                            player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            MainController.this.player1.move(-1*KEYBOARD_MOVEMENT_DELTA);
-                        }
-                        if (keyCode == KeyCode.D && player2.getX() < 1050) {
-                            player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
-                            MainController.this.player2.move(KEYBOARD_MOVEMENT_DELTA);
-                        }
-                        if (keyCode == KeyCode.A && player2.getX() > 0) {
-                            player2.setX(player2.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            MainController.this.player2.move(-1*KEYBOARD_MOVEMENT_DELTA);
-                        }
-                    }
-                }
-
-            }
-
-        });
-
-        pane.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                // TODO Auto-generated method stub
-                logger.debug("Current X: " + event.getScreenX());
-                logger.debug("Current Y : " + event.getScreenY());
-            }
-
-        });
-
-        pane.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(final KeyEvent event) {
-                keyboardBitSet.set(event.getCode().ordinal(), false);
-            }
-        });
-
-        pane.setFocusTraversable(true);
-
+    private void move(final Pane pane, final ImageView player1Image, final ImageView player2Image) {
+    	final PlayersMovement playersMovement = new PlayersMovement(pane, player1, player2, player1Image, player2Image);
+    	playersMovement.start();
     }
 
     // Setting Stars initially
     private void generateStars() {
 
-        ShapesMovements shape = new ShapesMovements(paneFXid, player1, player2);
+        final ShapesMovements shape = new ShapesMovements(paneFXid, player1, player2);
         shape.start("Naggar :* ");
 
     }
