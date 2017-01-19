@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.players.Player1;
 import model.players.Player2;
@@ -52,6 +53,9 @@ public class MainController {
 		final ImageView player2 = createP2();
 		move(paneFXid, player1, player2);
 		counter.setText(countingNumbers.toString());
+		counter.setFont(new Font(60));
+		counter.setLayoutX(600);
+		counter.setLayoutY(35);
 		updateTime();
 		generateStars();
 
@@ -112,6 +116,7 @@ public class MainController {
 		    @Override
 		    public void handle(ActionEvent event) {
 		        countingNumbers--;
+		        if(countingNumbers >= 0)
 				counter.setText(countingNumbers.toString());
 		    }
 		}));
