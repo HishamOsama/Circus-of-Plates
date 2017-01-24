@@ -10,7 +10,11 @@
       <Pane fx:id="paneFXid" prefHeight="400.0" prefWidth="600.0">
          <children>
             <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="counter" layoutX="241.0" layoutY="42.0" prefHeight="63.0" prefWidth="110.0" text="Label" textAlignment="CENTER" />
+            <Label fx:id="counter" layoutX="272.0" layoutY="27.0" prefHeight="63.0" prefWidth="110.0" text="Label" textAlignment="CENTER" />
+            <Label fx:id="score1" layoutX="116.0" layoutY="105.0" text="Label" />
+            <Label fx:id="scoreValue1" layoutX="116.0" layoutY="139.0" text="Label" />
+            <Label fx:id="score2" layoutX="382.0" layoutY="105.0" text="Label" />
+            <Label fx:id="scoreValue2" layoutX="382.0" layoutY="139.0" text="Label" />
          </children></Pane>
    </children>
 </AnchorPane>
