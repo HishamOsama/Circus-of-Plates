@@ -32,39 +32,33 @@ public class PlayersMovement extends ImageView implements Runnable {
 		this.player2Image = player2Imgae;
 	}
 
-	public void start() {
-		bigThread = new Thread() {
-			@Override
-			public void run() {
-				if (thread == null) {
-					thread = new Thread(threadName) {
-						@Override
-						public void run() {
-							while (true) {
-								// System.out.println("In PlayersMovments #" +
-								// (counter++) + " Action...");
-								//CheckPause(fPane);
-								if (!Paused.getState())
-									move(fPane, (player1Image), (player2Image));
-								try {
-									sleep(100);
-								} catch (final InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
+    public void start() {
 
-						}
-					};
-					thread.setDaemon(true);
-					thread.start();
-				}
-			}
-		};
-		bigThread.setDaemon(true);
-		bigThread.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            CheckPause(fPane);
+                            if (!Paused.getState()) {
+                                move(fPane, (player1Image), (player2Image));
+                            }
+                        }
+                    });
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
 
-	}
+        }).start();
+
+    }
 
 	private void move(final Pane pane, final ImageView player1, final ImageView player2) {
 
