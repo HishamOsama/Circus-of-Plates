@@ -1,6 +1,6 @@
 package controller;
 
-import controller.Enumrations.players;
+import controller.util.Enumrations.Players;
 import model.players.util.Observer;
 
 public class ScoreManager implements Observer{
@@ -13,19 +13,19 @@ public class ScoreManager implements Observer{
     private ScoreManager(){
         scores = new int[noOfPlayers];
         for(int i = 0 ; i < noOfPlayers ; i++){
-            scores[i]=0;
+            scores[i] = 0;
         }
     }
 
-    public void updateScore(final players type){
+    public void updateScore(final Players type){
         scores[type.ordinal()]++;
     }
 
-    public int getScore(final players type){
+    public int getScore(final Players type){
         return scores[type.ordinal()];
     }
 
-    public static ScoreManager getInstance(final int numberOfPlayers){
+    public static ScoreManager getInstance(){
         if(manager == null){
             manager = new ScoreManager();
         }

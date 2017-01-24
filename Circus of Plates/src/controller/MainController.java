@@ -18,9 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import model.players.AbstractPlayer;
 import model.players.Player1;
 import model.players.Player2;
-import model.players.AbstractPlayer;
 import model.shapes.ShapesMovements;
 
 public class MainController {
@@ -36,14 +36,14 @@ public class MainController {
 
     private Logger logger;
     private AbstractPlayer player1, player2;
-
+    private ScoreManager scoreManager;
     private Integer countingNumbers = 60;
 
     @FXML
     public void initialize() {
 
+    	scoreManager = ScoreManager.getInstance();
         // Setting the pane to the Stack Remover
-
         StackRemover.setPane(paneFXid);
 
         // Background...
@@ -70,6 +70,7 @@ public class MainController {
     private ImageView createP1() {
 
         player1 = new Player1();
+        player1.addObserver(scoreManager);
         final BufferedImage image = player1.getImage();
         final ImageView imageView = convertImage(image);
         imageView.setFitHeight(150);
@@ -83,6 +84,7 @@ public class MainController {
 
     private ImageView createP2() {
         player2 = new Player2();
+        player2.addObserver(scoreManager);
         final BufferedImage image = player2.getImage();
         final ImageView imageView = convertImage(image);
         imageView.setFitHeight(150);
@@ -117,17 +119,20 @@ public class MainController {
 
     private void updateTime() {
 
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        final Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(final ActionEvent event) {
+            	if (!Paused.getState()) {
                 countingNumbers--;
                 if (countingNumbers >= 0)
                     counter.setText(countingNumbers.toString());
+            	}
             }
         }));
         fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
         fiveSecondsWonder.play();
 
     }
+
 }

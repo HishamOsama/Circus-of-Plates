@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import controller.PlateFetching;
 import controller.PlateFetching.CheckResult;
-import controller.PlayersStack;
+import controller.util.Enumrations.Players;
 import javafx.scene.image.ImageView;
 import model.players.util.Observable;
 import model.players.util.Observer;
@@ -26,7 +26,8 @@ public abstract class AbstractPlayer implements Observable{
     protected PlayersStack[] stacks;
     protected PlateFetching checker;
     protected ArrayList<Observer> observers;
-    protected int playerID;
+    protected Players playerID;
+    protected int score;
 
     public AbstractPlayer() {
 
@@ -34,6 +35,7 @@ public abstract class AbstractPlayer implements Observable{
         stacks = new PlayersStack[2];
         initialize();
         checker = new PlateFetching(this);
+        score = 0;
     }
     public void initialize(){
         for(int i = 0 ; i < stacks.length;i++){
@@ -103,10 +105,17 @@ public abstract class AbstractPlayer implements Observable{
         playerPosition[0][1] = y;
     }
 
-    public void setPlayerID(final int id) {
+    public void setPlayerID(final Players id) {
     	playerID = id;
     }
 
+    public int getScore() {
+    	return score;
+    }
+
+    public void incrementScore() {
+    	score++;
+    }
     public int getStackHeight(final int index){
     	return stacks[index].getHeight();
     }

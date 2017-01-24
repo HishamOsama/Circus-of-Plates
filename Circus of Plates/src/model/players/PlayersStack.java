@@ -1,11 +1,10 @@
-package controller;
+package model.players;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import model.players.AbstractPlayer;
 
 /**
  * General Comments : - The blue comments are used to documentation. - The green
@@ -124,7 +123,8 @@ public class PlayersStack implements Runnable {
      * modify the Score manager to update the score of the current player.
      */
     private void updateScore() {
-        // manager.updateScore(type);
+       player.incrementScore();
+       player.notifyObserver();
     }
 
     public void start() {
