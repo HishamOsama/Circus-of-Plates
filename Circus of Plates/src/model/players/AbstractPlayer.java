@@ -30,11 +30,10 @@ public abstract class AbstractPlayer implements Observable{
     protected int score;
 
     public AbstractPlayer() {
-
-
         stacks = new PlayersStack[2];
         initialize();
         checker = new PlateFetching(this);
+        observers = new ArrayList<>();
         score = 0;
     }
     public void initialize(){
