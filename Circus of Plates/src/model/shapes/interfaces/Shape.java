@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import javafx.scene.paint.Color;
 
+
 public abstract class Shape {
 
     protected String imagePath;
@@ -47,7 +48,7 @@ public abstract class Shape {
         return image;
     }
 
-    public void setOrigin(int origin) {
+    public void setOrigin(final int origin) {
         this.origin = origin;
     }
 

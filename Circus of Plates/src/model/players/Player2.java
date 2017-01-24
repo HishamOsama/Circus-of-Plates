@@ -2,7 +2,9 @@ package model.players;
 
 import java.io.File;
 
-public class Player2 extends PlayerIF {
+import model.players.util.Observer;
+
+public class Player2 extends AbstractPlayer {
 
     public Player2() {
         imageName = "Clown2.png";
@@ -11,5 +13,17 @@ public class Player2 extends PlayerIF {
         playerPosition = new int[][]{{100,520}};
         loadImage();
     }
+
+    @Override
+	public void addObserver(final Observer observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void notifyObserver() {
+		for (final Observer observer : observers) {
+			observer.update(1);
+		}
+	}
 
 }

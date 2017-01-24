@@ -2,7 +2,9 @@ package model.players;
 
 import java.io.File;
 
-public class Player1 extends PlayerIF {
+import model.players.util.Observer;
+
+public class Player1 extends AbstractPlayer {
 
 
     public Player1() {
@@ -13,4 +15,16 @@ public class Player1 extends PlayerIF {
         playerPosition = new int[][]{{400,520}};
         loadImage();
     }
+
+	@Override
+	public void addObserver(final Observer observer) {
+		observers.add(observer);
+	}
+
+	@Override
+	public void notifyObserver() {
+		for (final Observer observer : observers) {
+			observer.update(0);
+		}
+	}
 }

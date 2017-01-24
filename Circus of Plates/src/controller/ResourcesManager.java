@@ -2,15 +2,15 @@ package controller;
 
 import model.players.Player1;
 import model.players.Player2;
-import model.players.PlayerIF;
+import model.players.AbstractPlayer;
 import model.shapes.PlatesPool;
 import model.shapes.interfaces.Shape;
 
 public class ResourcesManager {
 
     PlatesPool platesPool;
-    PlayerIF player1;
-    PlayerIF player2;
+    AbstractPlayer player1;
+    AbstractPlayer player2;
 
     public ResourcesManager() {
         platesPool = new PlatesPool();
@@ -26,11 +26,11 @@ public class ResourcesManager {
         platesPool.returnPlate(finishedShape);
     }
 
-    public PlayerIF getFirstPlayer() {
+    public AbstractPlayer getFirstPlayer() {
         return player1;
     }
 
-    public PlayerIF getSecondPlayer() {
+    public AbstractPlayer getSecondPlayer() {
         return player2;
     }
 }

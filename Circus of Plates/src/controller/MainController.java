@@ -20,7 +20,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.players.Player1;
 import model.players.Player2;
-import model.players.PlayerIF;
+import model.players.AbstractPlayer;
 import model.shapes.ShapesMovements;
 
 public class MainController {
@@ -35,7 +35,7 @@ public class MainController {
     private Label counter;
 
     private Logger logger;
-    private PlayerIF player1, player2;
+    private AbstractPlayer player1, player2;
 
     private Integer countingNumbers = 60;
 

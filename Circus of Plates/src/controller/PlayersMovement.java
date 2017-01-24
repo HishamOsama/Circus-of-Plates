@@ -8,22 +8,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import model.players.PlayerIF;
+import model.players.AbstractPlayer;
 
 public class PlayersMovement extends ImageView implements Runnable {
 
     private final Pane fPane;
-    private final PlayerIF player1;
-    private final PlayerIF player2;
+    private final AbstractPlayer player1;
+    private final AbstractPlayer player2;
     private final ImageView player1Image;
     private final ImageView player2Image;
     private Thread thread, bigThread;
     private final static String threadName = "PlayersMover";
     private final BitSet keyboardBitSet = new BitSet();
     private static final int KEYBOARD_MOVEMENT_DELTA = 25;
-    private int counter = 0;
+    private final int counter = 0;
 
-    public PlayersMovement(final Pane fPane, final PlayerIF player1, final PlayerIF player2,
+    public PlayersMovement(final Pane fPane, final AbstractPlayer player1, final AbstractPlayer player2,
             final ImageView player1Image, final ImageView player2Imgae) {
         this.fPane = fPane;
         this.player1 = player1;
@@ -34,7 +34,8 @@ public class PlayersMovement extends ImageView implements Runnable {
 
     public void start() {
         bigThread = new Thread() {
-            public void run() {
+            @Override
+			public void run() {
                 if (thread == null) {
                     thread = new Thread(threadName) {
                         @Override
@@ -44,7 +45,7 @@ public class PlayersMovement extends ImageView implements Runnable {
                                 move(fPane, (player1Image), (player2Image));
                                 try {
                                     sleep(100);
-                                } catch (InterruptedException e) {
+                                } catch (final InterruptedException e) {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();
                                 }
@@ -73,21 +74,19 @@ public class PlayersMovement extends ImageView implements Runnable {
                     if (keyboardBitSet.get(keyCode.ordinal())) {
                         if (keyCode == KeyCode.RIGHT && player1.getX() < 1050) {
                             player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);
-                             PlayersMovement.this.player1.move(KEYBOARD_MOVEMENT_DELTA);
                             PlayersMovement.this.player1.playerPosition((int) player1.getX(), (int) player1.getY());
                         }
                         if (keyCode == KeyCode.LEFT && player1.getX() > 0) {
                             player1.setX(player1.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            PlayersMovement.this.player1.move(-1*KEYBOARD_MOVEMENT_DELTA);
                             PlayersMovement.this.player1.playerPosition((int) player1.getX(), (int) player1.getY());
                         }
                         if (keyCode == KeyCode.D && player2.getX() < 1050) {
                             player2.setX(player2.getX() + KEYBOARD_MOVEMENT_DELTA);
-                             PlayersMovement.this.player2.move(KEYBOARD_MOVEMENT_DELTA);
+                            PlayersMovement.this.player2.playerPosition((int) player2.getX(), (int) player2.getY());
                         }
                         if (keyCode == KeyCode.A && player2.getX() > 0) {
                             player2.setX(player2.getX() - KEYBOARD_MOVEMENT_DELTA);
-                            PlayersMovement.this.player2.move(-1*KEYBOARD_MOVEMENT_DELTA);
+                            PlayersMovement.this.player2.playerPosition((int) player2.getX(), (int) player2.getY());
                         }
                     }
                 }

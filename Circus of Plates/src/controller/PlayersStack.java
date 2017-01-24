@@ -1,16 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
-import controller.util.StackRemover;
-import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import model.players.PlayerIF;
+import model.players.AbstractPlayer;
 
 /**
  * General Comments : - The blue comments are used to documentation. - The green
@@ -40,7 +35,7 @@ public class PlayersStack implements Runnable {
     /**
      * Which player this object belongs to.
      */
-    private final PlayerIF player;
+    private final AbstractPlayer player;
     /**
      * Score controller that should be modified if we found match.
      */
@@ -52,10 +47,10 @@ public class PlayersStack implements Runnable {
     /**
      * to determin Which stack
      */
-    private int index;
-    private int counter = 0;
+    private final int index;
+    private final int counter = 0;
 
-    public PlayersStack(final PlayerIF player, final int index) {
+    public PlayersStack(final AbstractPlayer player, final int index) {
         plates = new Stack<>();
         images = new ArrayList<>();
         this.player = player;
@@ -65,16 +60,20 @@ public class PlayersStack implements Runnable {
 
     /**
      * Add the new shape to the stack ,then check if we found match or not.
-     * 
+     *
      * @param plate
      *            the plate to put in the Stack.
      */
-    public void addShape(final Color plate, ImageView image, int indexOfStack) {
+    public void addShape(final Color plate, final ImageView image, final int indexOfStack) {
         plates.push(plate);
         images.add(image);
         checkStack();
 
     }
+
+    public int getHeight(){
+		return images.size();
+	}
 
     /**
      * This method is used to put the items we want to check about them in an
@@ -88,15 +87,14 @@ public class PlayersStack implements Runnable {
                 platesToCheck[i] = plates.pop();
             }
             final boolean allSimilar = checkSimilarity(platesToCheck);
-            
+
             if (allSimilar) {
-                List<Node> nodesToRemove = new ArrayList<>();               
+
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
-                    ImageView im = images.remove(images.size() - 1);
-                    nodesToRemove.add(im);
+                    final ImageView im = images.remove(images.size() - 1);
+                    im.setVisible(false);
                 }
-                //StackRemover.remove(nodesToRemove);
                 updateScore();
             }
         }
@@ -104,7 +102,7 @@ public class PlayersStack implements Runnable {
 
     /**
      * This method is used to see it the items in the array are similar or not
-     * 
+     *
      * @param platesToCheck
      *            array we want to compare its items
      * @return true -> the items are all similar false -> at least one item is
@@ -138,25 +136,39 @@ public class PlayersStack implements Runnable {
 
     }
 
+    private void drawStack(){
+		final int[][] position = player.getPlayerPosition();
+
+		int leftHight = 0;
+		int RightHight = 0;
+
+		for (int i = 0; i < images.size(); i++) {
+			if (index == 0) {
+				images.get(i).setX(position[0][0] + 110);
+				images.get(i).setY(520 - (50 * leftHight));
+				leftHight++;
+			}
+			else {
+				images.get(i).setX(position[0][0] - 15);
+				images.get(i).setY(555 - (50 * RightHight));
+				RightHight++;
+			}
+
+		}
+	}
+
     @Override
     public synchronized void run() {
         // TODO Auto-generated method stub
-        while (true) {
-            int[][] position = player.getPlayerPosition();
-            for (int i = 0; i < images.size(); i++) {
-                if (index == 0 || index == 1)
-                    images.get(i).setX(position[0][0] + 110);
-                images.get(i).setY(520 - (50 * i));
-                System.out.println("Image of Index : " + i + "\nX : " + images.get(i).getX() + "\n" + "Y: "
-                        + images.get(i).getY());
-            }
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+    	while (true) {
+			drawStack();
+		try {
+			Thread.sleep(100);
+		} catch (final InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
     }
 }
