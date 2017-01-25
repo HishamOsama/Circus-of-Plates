@@ -8,6 +8,7 @@ import javax.swing.Timer;
 
 import controller.Paused;
 import controller.PlateFetching.CheckResult;
+import controller.ResourcesManager;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -26,10 +27,10 @@ public class ShapesMovements extends ImageView implements Runnable {
     private final AbstractPlayer player1, player2;
     //private final int speed;
 
-    public ShapesMovements(final Pane fx, final AbstractPlayer player1, final AbstractPlayer player2) {
+    public ShapesMovements(final Pane fx, final ResourcesManager resourcesManager) {
         this.fx = fx;
-        this.player1 = player1;
-        this.player2 = player2;
+        this.player1 = resourcesManager.getFirstPlayer();
+        this.player2 = resourcesManager.getSecondPlayer();
         delta = DimensionsConstants.delta;
         //this.speed = speed;
     }

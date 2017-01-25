@@ -9,7 +9,9 @@ import javax.imageio.ImageIO;
 
 import controller.PlateFetching;
 import controller.PlateFetching.CheckResult;
+import controller.ResourcesManager;
 import controller.util.Enumrations.Players;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import model.players.util.Observable;
 import model.players.util.Observer;
@@ -28,13 +30,15 @@ public abstract class AbstractPlayer implements Observable{
     protected ArrayList<Observer> observers;
     protected Players playerID;
     protected int score;
+    protected ResourcesManager resourcesManager;
 
-    public AbstractPlayer() {
+    public AbstractPlayer(final ResourcesManager resourcesManager) {
         stacks = new PlayersStack[2];
         initialize();
         checker = new PlateFetching(this);
         observers = new ArrayList<>();
         score = 0;
+        this.resourcesManager = resourcesManager;
     }
     public void initialize(){
         for(int i = 0 ; i < stacks.length;i++){
@@ -99,6 +103,9 @@ public abstract class AbstractPlayer implements Observable{
         }
     }
 
+    protected void removeFromPane(final Node node) {
+    	resourcesManager.removePlate(node);
+    }
     public void playerPosition(final int x, final int y) {
         playerPosition[0][0] = x;
         playerPosition[0][1] = y;

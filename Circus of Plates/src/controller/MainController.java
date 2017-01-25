@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import controller.util.Enumrations.Players;
-import controller.util.StackRemover;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
@@ -20,8 +19,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.players.AbstractPlayer;
-import model.players.Player1;
-import model.players.Player2;
 import model.shapes.ShapesMovements;
 import util.DimensionsConstants;
 
@@ -44,7 +41,7 @@ public class MainController {
 	private Label scoreValue1;
 	@FXML
 	private Label scoreValue2;
-
+	private ResourcesManager resourcesManager;
 	private Logger logger;
 	private AbstractPlayer player1, player2;
 	private ScoreManager scoreManager;
@@ -58,7 +55,7 @@ public class MainController {
 
 		scoreManager = ScoreManager.getInstance();
 		// Setting the pane to the Stack Remover
-		StackRemover.setPane(paneFXid);
+		resourcesManager = new ResourcesManager(paneFXid);
 
 		// Background...
 		// String path = System.getProperty("user.dir") + File.separator +
@@ -76,16 +73,16 @@ public class MainController {
 		updateLabels();
 
 	}
-	
-	public void setDifficulty(int level){
+
+	public void setDifficulty(final int level){
 		difficulty = level;
 	}
-	
+
 	public static int getDifficulty(){
 		return difficulty;
 	}
-	
-	
+
+
 
 	private void setLabels() {
 		// Counter Label...
@@ -119,7 +116,7 @@ public class MainController {
 
 	private ImageView createP1() {
 
-		player1 = new Player1();
+		player1 = resourcesManager.getFirstPlayer();
 		player1.addObserver(scoreManager);
 		final BufferedImage image = player1.getImage();
 		final ImageView imageView = convertImage(image);
@@ -133,7 +130,7 @@ public class MainController {
 	}
 
 	private ImageView createP2() {
-		player2 = new Player2();
+		player2 = resourcesManager.getSecondPlayer();
 		player2.addObserver(scoreManager);
 		final BufferedImage image = player2.getImage();
 		final ImageView imageView = convertImage(image);
@@ -147,14 +144,14 @@ public class MainController {
 	}
 
 	private void move(final Pane pane, final ImageView player1Image, final ImageView player2Image) {
-		final PlayersMovement playersMovement = new PlayersMovement(pane, player1, player2, player1Image, player2Image);
+		final PlayersMovement playersMovement = new PlayersMovement(pane, resourcesManager, player1Image, player2Image);
 		playersMovement.start();
 	}
 
 	// Setting Stars initially
 	private void generateStars() {
 
-		final ShapesMovements shape = new ShapesMovements(paneFXid, player1, player2);
+		final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager);
 		shape.start("Naggar :* ");
 
 	}
@@ -180,8 +177,8 @@ public class MainController {
 						generateStars();
 						initialize = false;
 					}
-					
-					
+
+
 					// Setting Time Label
 					if (!halfSecond) {
 						countingNumbers--;

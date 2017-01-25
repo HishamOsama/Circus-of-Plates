@@ -1,26 +1,24 @@
 package controller.util;
 
-import java.util.List;
-
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 public class StackRemover {
 
-    private static Pane mPane;
+    private Pane mPane;
 
     public StackRemover() {
 
     }
 
-    public static void setPane(Pane mnPane) {
+    public void setPane(final Pane mnPane) {
         mPane = mnPane;
     }
 
-    public static boolean remove(List<Node> nodes) {
+    public boolean remove(final Node node) {
         if (mPane == null)
             return false;
-        return mPane.getChildren().removeAll(nodes);
+        return mPane.getChildren().remove(node);
     }
 
 }

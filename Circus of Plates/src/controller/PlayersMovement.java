@@ -23,11 +23,11 @@ public class PlayersMovement extends ImageView implements Runnable {
 	private static final int KEYBOARD_MOVEMENT_DELTA = 25;
 	private final int counter = 0;
 
-	public PlayersMovement(final Pane fPane, final AbstractPlayer player1, final AbstractPlayer player2,
+	public PlayersMovement(final Pane fPane, final ResourcesManager resourcesManager,
 			final ImageView player1Image, final ImageView player2Imgae) {
 		this.fPane = fPane;
-		this.player1 = player1;
-		this.player2 = player2;
+		this.player1 = resourcesManager.getFirstPlayer();
+		this.player2 = resourcesManager.getSecondPlayer();
 		this.player1Image = player1Image;
 		this.player2Image = player2Imgae;
 	}
