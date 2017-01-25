@@ -161,12 +161,16 @@ public class PlayersStack implements Runnable {
 
         for (int i = 0; i < images.size(); i++) {
             if (index == 0) {
-                images.get(i).setX(position[0][0] + 110);
-                images.get(i).setY(520 - (50 * leftHight));
+            	final int index = i;
+            	final int finalHight = leftHight;
+                Platform.runLater(() -> images.get(index).setX(position[0][0] + 110));
+                Platform.runLater(() -> images.get(index).setY(520 - (50 * finalHight)));
                 leftHight++;
             } else {
-                images.get(i).setX(position[0][0] - 15);
-                images.get(i).setY(555 - (50 * RightHight));
+            	final int index = i;
+            	final int finalHight = RightHight;
+            	Platform.runLater(() -> images.get(index).setX(position[0][0] - 15));
+                Platform.runLater(() -> images.get(index).setY(555 - (50 * finalHight)));;
                 RightHight++;
             }
 

@@ -83,7 +83,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                     public void actionPerformed(final ActionEvent e) {
                                                         if (!Paused.getState()) {
                                                             if (isMoving) {
-                                                                move(image, shape.getOrigin());
+                                                                Platform.runLater(() -> move(image, shape.getOrigin()));;
                                                                 if (isOutOfSight(image)) {
                                                                 	//image.setVisible(false);
                                                                 	Platform.runLater(() -> fx.getChildren().remove(image));
@@ -139,13 +139,13 @@ public class ShapesMovements extends ImageView implements Runnable {
     }
 
     public void move(final ImageView image, final int origin) {
-        if (origin == 1000) {
-            if (image.getX() < 600) {
+        if (origin == DimensionsConstants.ALTERNATING_FACTOR ) {
+            if (image.getX() < DimensionsConstants.leftEdgePosition ) {
                 image.setY(delta * delta + image.getY());
             }
             image.setX(image.getX() - delta);
         } else {
-            if (image.getX() > 400) {
+            if (image.getX() > DimensionsConstants.rightEdgePosition) {
                 image.setY(delta * delta + image.getY());
             }
             image.setX(image.getX() + delta);

@@ -12,19 +12,19 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.gamestates.GameState;
+import model.gamestates.PausedState;
+import model.gamestates.Player1WinState;
+import model.gamestates.Player2WinsState;
+import model.gamestates.TiedState;
 import model.players.AbstractPlayer;
-import model.save.GameState;
 import model.save.PlayersStacksData;
 import model.save.Snapshot;
 import model.shapes.ShapesMovements;
@@ -51,6 +51,9 @@ public class MainController {
     private Label scoreValue2;
 
     @FXML
+    private Label pauseLabel;
+
+    @FXML
     private Button saveButton;
 
     private ResourcesManager resourcesManager;
@@ -68,11 +71,22 @@ public class MainController {
         scoreManager = ScoreManager.getInstance();
         // Setting the pane to the Stack Remover
         resourcesManager = new ResourcesManager(paneFXid);
-
         // Background...
         // String path = System.getProperty("user.dir") + File.separator +
         // "Resources" + File.separator + "wallpaper.jpeg";
         final Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
+
+        ImageView iv1 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
+        iv1.setY(-120);
+        iv1.setFitWidth(420);
+        paneFXid.getChildren().add(iv1);
+
+        ImageView iv2 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
+        iv2.setX(830);
+        iv2.setY(-120);
+        iv2.setFitWidth(420);
+        paneFXid.getChildren().add(iv2);
+
         imageView.setImage(image);
         imageView.setFitWidth(DimensionsConstants.XBoundary);
         imageView.setFitHeight(DimensionsConstants.YBoundary);
@@ -95,6 +109,13 @@ public class MainController {
     }
 
     private void setLabels() {
+
+        // Pause Label...
+        pauseLabel.setText("");
+        pauseLabel.setFont(new Font(30));
+        pauseLabel.setLayoutX(600);
+        pauseLabel.setLayoutY(65);
+
         // Counter Label...
         counter.setText(countingNumbers.toString());
         counter.setFont(new Font(60));
@@ -192,8 +213,12 @@ public class MainController {
                     if (!halfSecond) {
                         countingNumbers--;
 
-                        if (countingNumbers >= 0)
+                        if (countingNumbers >= 0) {
                             counter.setText(countingNumbers.toString());
+                        } else if (countingNumbers == -1) {
+                            Paused.changeState();
+                            terminate();
+                        }
                     }
                     halfSecond = !halfSecond;
 
@@ -204,6 +229,10 @@ public class MainController {
                     scoreValue1.setText(x.toString());
                     scoreValue2.setText(y.toString());
 
+                    pauseLabel.setText("");
+                } else {
+                    GameState state = new PausedState();
+                    pauseLabel.setText(state.printProperMessage());
                 }
             }
         }));
@@ -213,15 +242,27 @@ public class MainController {
     }
 
     private void terminate() {
-        try {
-            Stage stage = (Stage) imageView.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/GameDesign2.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        paneFXid.getChildren().clear();
+        paneFXid.getChildren().add(imageView);
+        Label l = new Label();
+        l.setText("");
+        l.setFont(new Font(30));
+        l.setLayoutX(600);
+        l.setLayoutY(65);
+        paneFXid.getChildren().add(l);
+
+        int x = scoreManager.getScore(Players.player1);
+        int y = scoreManager.getScore(Players.player2);
+
+        GameState state;
+        if (x > y) {
+            state = new Player1WinState();
+        } else if (x < y) {
+            state = new Player2WinsState();
+        } else {
+            state = new TiedState();
         }
+        l.setText(state.printProperMessage());
     }
 
     private void clickSave() {
@@ -235,16 +276,17 @@ public class MainController {
                 for (Players t : Players.values()) {
                     scores[t.ordinal()] = scoreManager.getScore(t);
                 }
-                //GameState g = new GameState(scores, countingNumbers, difficulty);
+                // GameState g = new GameState(scores, countingNumbers,
+                // difficulty);
                 PlayersStacksData[] data = new PlayersStacksData[len];
                 AbstractPlayer p1 = resourcesManager.getFirstPlayer();
                 AbstractPlayer p2 = resourcesManager.getSecondPlayer();
                 data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
                 data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
-               // Snapshot save = new Snapshot(g, data);
-//                save.saveShot(System.getProperty("user.dir"), "test");
-//                Snapshot load = new Snapshot();
-//                load.LoadDate(System.getProperty("user.dir"), "test");
+                // Snapshot save = new Snapshot(g, data);
+                // save.saveShot(System.getProperty("user.dir"), "test");
+                // Snapshot load = new Snapshot();
+                // load.LoadDate(System.getProperty("user.dir"), "test");
 
             }
         });
