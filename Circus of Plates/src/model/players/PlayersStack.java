@@ -3,6 +3,7 @@ package model.players;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
@@ -70,9 +71,9 @@ public class PlayersStack implements Runnable {
 
     }
 
-    public int getHeight(){
-		return images.size();
-	}
+    public int getHeight() {
+        return images.size();
+    }
 
     /**
      * This method is used to put the items we want to check about them in an
@@ -123,8 +124,8 @@ public class PlayersStack implements Runnable {
      * modify the Score manager to update the score of the current player.
      */
     private void updateScore() {
-       player.incrementScore();
-       player.notifyObserver();
+        player.incrementScore();
+        player.notifyObserver();
     }
 
     public void start() {
@@ -136,39 +137,43 @@ public class PlayersStack implements Runnable {
 
     }
 
-    private void drawStack(){
-		final int[][] position = player.getPlayerPosition();
+    private void drawStack() {
+        final int[][] position = player.getPlayerPosition();
 
-		int leftHight = 0;
-		int RightHight = 0;
+        int leftHight = 0;
+        int RightHight = 0;
 
-		for (int i = 0; i < images.size(); i++) {
-			if (index == 0) {
-				images.get(i).setX(position[0][0] + 110);
-				images.get(i).setY(520 - (50 * leftHight));
-				leftHight++;
-			}
-			else {
-				images.get(i).setX(position[0][0] - 15);
-				images.get(i).setY(555 - (50 * RightHight));
-				RightHight++;
-			}
+        for (int i = 0; i < images.size(); i++) {
+            if (index == 0) {
+                images.get(i).setX(position[0][0] + 110);
+                images.get(i).setY(520 - (50 * leftHight));
+                leftHight++;
+            } else {
+                images.get(i).setX(position[0][0] - 15);
+                images.get(i).setY(555 - (50 * RightHight));
+                RightHight++;
+            }
 
-		}
-	}
+        }
+    }
 
     @Override
     public synchronized void run() {
         // TODO Auto-generated method stub
-    	while (true) {
-			drawStack();
-		try {
-			Thread.sleep(100);
-		} catch (final InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        while (true) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    drawStack();
+
+                }
+            });
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
