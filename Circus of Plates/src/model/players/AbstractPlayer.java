@@ -15,9 +15,10 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import model.players.util.Observable;
 import model.players.util.Observer;
+import model.save.SaveShapeNode;
 import model.shapes.interfaces.Shape;
 
-public abstract class AbstractPlayer implements Observable{
+public abstract class AbstractPlayer implements Observable {
 
     protected String imagePath;
     protected File imageFile;
@@ -40,17 +41,22 @@ public abstract class AbstractPlayer implements Observable{
         score = 0;
         this.resourcesManager = resourcesManager;
     }
-    public void initialize(){
-        for(int i = 0 ; i < stacks.length;i++){
+
+    public void initialize() {
+        for (int i = 0; i < stacks.length; i++) {
             stacks[i] = new PlayersStack(this, i);
             stacks[i].start();
         }
 
     }
 
+    public ArrayList<SaveShapeNode> getStackList(int index) {
+        return stacks[index].getStackShape();
+    }
+
     public void receivePlate(final int index, final Shape plate, final ImageView image) {
         System.out.println(index);
-        stacks[index].addShape(plate.getColor(), image, index);
+        stacks[index].addShape(plate, image, index);
 
     }
 
@@ -61,7 +67,8 @@ public abstract class AbstractPlayer implements Observable{
     public float[][] getStacksCenters() {
         return stacksCenter;
     }
-    public CheckResult check(final int x, final int y){
+
+    public CheckResult check(final int x, final int y) {
         return checker.CheckMe(x, y);
     }
 
@@ -104,26 +111,28 @@ public abstract class AbstractPlayer implements Observable{
     }
 
     protected void removeFromPane(final Node node) {
-    	resourcesManager.removePlate(node);
+        resourcesManager.removePlate(node);
     }
+
     public void playerPosition(final int x, final int y) {
         playerPosition[0][0] = x;
         playerPosition[0][1] = y;
     }
 
     public void setPlayerID(final Players id) {
-    	playerID = id;
+        playerID = id;
     }
 
     public int getScore() {
-    	return score;
+        return score;
     }
 
     public void incrementScore() {
-    	score++;
+        score++;
     }
-    public int getStackHeight(final int index){
-    	return stacks[index].getHeight();
+
+    public int getStackHeight(final int index) {
+        return stacks[index].getHeight();
     }
 
 }
