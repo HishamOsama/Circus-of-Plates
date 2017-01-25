@@ -23,6 +23,7 @@ import model.players.AbstractPlayer;
 import model.players.Player1;
 import model.players.Player2;
 import model.shapes.ShapesMovements;
+import util.DimensionsConstants;
 
 public class MainController {
 
@@ -62,8 +63,8 @@ public class MainController {
 		// "Resources" + File.separator + "wallpaper.jpeg";
 		final Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
 		imageView.setImage(image);
-		imageView.setFitWidth(1200);
-		imageView.setFitHeight(700);
+		imageView.setFitWidth(DimensionsConstants.XBoundary);
+		imageView.setFitHeight(DimensionsConstants.YBoundary);
 		logger = LogManager.getLogger();
 		logger.debug("Hello");
 		final ImageView player1 = createP1();
@@ -172,8 +173,8 @@ public class MainController {
 					halfSecond = !halfSecond;
 
 					// Setting Score Label
-					Integer x = scoreManager.getScore(Players.player1);
-					Integer y = scoreManager.getScore(Players.player2);
+					final Integer x = scoreManager.getScore(Players.player1);
+					final Integer y = scoreManager.getScore(Players.player2);
 
 					scoreValue1.setText(x.toString());
 					scoreValue2.setText(y.toString());

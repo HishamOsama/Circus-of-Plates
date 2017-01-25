@@ -16,19 +16,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.players.AbstractPlayer;
 import model.shapes.interfaces.Shape;
+import util.DimensionsConstants;
 
 public class ShapesMovements extends ImageView implements Runnable {
 
     private Shape shape;
-    private static final int delta = 2;
+    private final int delta;
     private final Pane fx;
     private final AbstractPlayer player1, player2;
-    private final int counter2 = 0;
+    //private final int speed;
 
     public ShapesMovements(final Pane fx, final AbstractPlayer player1, final AbstractPlayer player2) {
         this.fx = fx;
         this.player1 = player1;
         this.player2 = player2;
+        delta = DimensionsConstants.delta;
+        //this.speed = speed;
     }
 
     public Color getColor() {
@@ -58,17 +61,19 @@ public class ShapesMovements extends ImageView implements Runnable {
 
                                                 final Shape shape = platesPool.getPlate();
 
-                                                lastOrign = 1000 - lastOrign;
+                                                lastOrign =
+                                                		DimensionsConstants.ALTERNATING_FACTOR - lastOrign;
 
                                                 shape.setOrigin(lastOrign);
 
                                                 final ImageView image = convertImage(shape.getImage());
-                                                image.setFitHeight(50);
-                                                image.setFitWidth(50);
+                                                image.setFitHeight(DimensionsConstants.IMAGE_SIZE);
+                                                image.setFitWidth(DimensionsConstants.IMAGE_SIZE);
                                                 image.setX(lastOrign);
-                                                image.setY(60);
+                                                image.setY(DimensionsConstants.INITIAL_Y);
                                                 fx.getChildren().add(image);
                                                 final boolean moving = true;
+                                                //set timer speed to that indicated in level selection
                                                 final Timer timer = new Timer(50, new ActionListener() {
 
                                                     private boolean isMoving = moving;
@@ -78,6 +83,12 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                         if (!Paused.getState()) {
                                                             if (isMoving) {
                                                                 move(image, shape.getOrigin());
+                                                                if (isOutOfSight(image)) {
+                                                                	//image.setVisible(false);
+                                                                	Platform.runLater(() -> fx.getChildren().remove(image));
+
+                                                                	//platesPool.returnPlate(shape);
+                                                                }
                                                                 final CheckResult tmp = player1
                                                                         .check((int) image.getX(), (int) image.getY());
                                                                 if (!tmp.getResult()) {
@@ -101,6 +112,9 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                 timer.start();
                                             }
                                         }
+
+
+
                                     });
                                     try {
                                         Thread.sleep(2000);
@@ -143,6 +157,16 @@ public class ShapesMovements extends ImageView implements Runnable {
         final ImageView dispaly = new ImageView(imageF);
 
         return dispaly;
+    }
+
+    private boolean isOutOfSight(final ImageView image) {
+    	if (image.getX() > DimensionsConstants.XBoundary || image.getX() < 0 - DimensionsConstants.IMAGE_SIZE) {
+    		return true;
+    	}
+    	if (image.getY() > DimensionsConstants.YBoundary || image.getY() < 0 - DimensionsConstants.IMAGE_SIZE) {
+    		return true;
+    	}
+    	return false;
     }
 
     @Override

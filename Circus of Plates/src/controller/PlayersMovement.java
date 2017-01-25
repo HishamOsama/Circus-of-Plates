@@ -49,7 +49,7 @@ public class PlayersMovement extends ImageView implements Runnable {
                     });
                     try {
                         Thread.sleep(500);
-                    } catch (InterruptedException e) {
+                    } catch (final InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
@@ -110,7 +110,6 @@ public class PlayersMovement extends ImageView implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		Platform.runLater(thread);
 
 	}

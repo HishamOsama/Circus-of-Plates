@@ -1,6 +1,7 @@
 package model.shapes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import controller.util.iterator.Container;
 import controller.util.iterator.Iterator;
@@ -10,7 +11,7 @@ import model.shapes.util.PlatesFactory;
 public class PlatesPool implements Container{
 
 	private final ArrayList<Shape> plates;
-	private final int MAX_SHAPE_COUNT = 2;
+	private final int MAX_SHAPE_COUNT = 10;
 	private int indexOfCurrentServed;
 
 	public PlatesPool() {
@@ -26,7 +27,12 @@ public class PlatesPool implements Container{
 				plates.add(factory.getShape(key));
 			}
 		}
+		shufflePlates();
 		indexOfCurrentServed = plates.size() - 1;
+	}
+
+	private void shufflePlates() {
+		Collections.shuffle(plates);
 	}
 
 	public Shape getPlate() {
@@ -43,6 +49,7 @@ public class PlatesPool implements Container{
 
 	public void returnPlate(final Shape finishedShape) {
 		plates.add(finishedShape);
+		indexOfCurrentServed++;
 	}
 
 	@Override

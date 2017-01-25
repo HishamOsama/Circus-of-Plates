@@ -93,7 +93,8 @@ public class PlayersStack implements Runnable {
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
                     final ImageView im = images.remove(images.size() - 1);
-                    im.setVisible(false);
+                    //im.setVisible(false);
+                    //Platform.runLater(() -> StackRemover);
                 }
                 updateScore();
             }
@@ -165,12 +166,11 @@ public class PlayersStack implements Runnable {
                 @Override
                 public void run() {
                     drawStack();
-
                 }
             });
             try {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
             }
         }
