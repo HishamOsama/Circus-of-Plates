@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +16,7 @@
             <Label fx:id="scoreValue1" layoutX="116.0" layoutY="139.0" text="Label" />
             <Label fx:id="score2" layoutX="382.0" layoutY="105.0" text="Label" />
             <Label fx:id="scoreValue2" layoutX="382.0" layoutY="139.0" text="Label" />
+            <Button fx:id="saveButton" layoutX="300.0" layoutY="300.0" mnemonicParsing="false" text="SAVE" />
          </children></Pane>
    </children>
 </AnchorPane>

@@ -5,7 +5,7 @@ import model.levels.util.LevelSpeedStrategy;
 
 public class LowSpeed extends LevelSpeedStrategy{
 
-	private static final int lowSpeed = 14;
+	private static final int lowSpeed = 30;
 	public LowSpeed(final MainController mainController) {
 		super(lowSpeed, mainController);
 	}

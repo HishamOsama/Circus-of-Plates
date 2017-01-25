@@ -27,6 +27,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.levels.HighSpeed;
+import model.levels.LowSpeed;
+import model.levels.MediumSpeed;
+import model.levels.util.LevelSpeedStrategy;
 import model.shapes.dynamicloading.Loader;
 
 public class App extends Application {
@@ -51,18 +55,21 @@ public class App extends Application {
 		hbox.setTranslateY(50);
 
 		MenuItem easyItem = new MenuItem("EASY");
-		easyItem.setOnActivate(() -> loadGameScene(2));
+		easyItem.setOnActivate(() -> loadGameScene(1));
 
 		MenuItem mediumItem = new MenuItem("MEDIUM");
-		mediumItem.setOnActivate(() -> loadGameScene(5));
+		mediumItem.setOnActivate(() -> loadGameScene(2));
 
 		MenuItem hardItem = new MenuItem("HARD");
-		hardItem.setOnActivate(() -> loadGameScene(10));
+		hardItem.setOnActivate(() -> loadGameScene(3));
+
+		MenuItem load = new MenuItem("LOAD");
+		// load.setOnActivate(() -> CALL HERE);
 
 		MenuItem itemExit = new MenuItem("EXIT");
 		itemExit.setOnActivate(() -> System.exit(0));
 
-		menuBox = new VBox(10, easyItem, mediumItem, hardItem, itemExit);
+		menuBox = new VBox(10, easyItem, mediumItem, hardItem, load, itemExit);
 		menuBox.setAlignment(Pos.TOP_CENTER);
 		menuBox.setTranslateX(360);
 		menuBox.setTranslateY(300);
@@ -200,7 +207,18 @@ public class App extends Application {
 			FXMLLoader newLoader = new FXMLLoader(getClass().getResource("/view/GameDesign.fxml"));
 			root = (Parent) newLoader.load();
 			MainController controller = newLoader.<MainController> getController();
-			controller.setDifficulty(level);
+
+			LevelSpeedStrategy strategy;
+
+			if (level == 1) {
+				strategy = new LowSpeed(controller);
+			} else if (level == 2) {
+				strategy = new MediumSpeed(controller);
+			} else {
+				strategy = new HighSpeed(controller);
+			}
+
+			strategy.start();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -211,6 +229,8 @@ public class App extends Application {
 		stage.setScene(new Scene(root));
 		stage.setMinWidth(1200);
 		stage.setMinHeight(700);
+		stage.setX(0);
+		stage.setY(0);
 		stage.setResizable(false);
 		stage.show();
 

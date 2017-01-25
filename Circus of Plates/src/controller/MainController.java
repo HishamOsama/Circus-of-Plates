@@ -12,11 +12,16 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.players.AbstractPlayer;
 import model.shapes.ShapesMovements;
@@ -41,6 +46,11 @@ public class MainController {
 	private Label scoreValue1;
 	@FXML
 	private Label scoreValue2;
+	
+	@FXML
+	private Button saveButton;
+	
+	
 	private ResourcesManager resourcesManager;
 	private Logger logger;
 	private AbstractPlayer player1, player2;
@@ -48,7 +58,7 @@ public class MainController {
 	private Integer countingNumbers = 60;
 	private boolean halfSecond = true;
 	private boolean initialize = true;
-	private static int difficulty;
+	private int difficulty;
 
 	@FXML
 	public void initialize() {
@@ -71,18 +81,16 @@ public class MainController {
 		move(paneFXid, player1, player2);
 		setLabels();
 		updateLabels();
-
+		clickSave();
 	}
 
-	public void setDifficulty(final int level){
+	public void setDifficulty(final int level) {
 		difficulty = level;
 	}
 
-	public static int getDifficulty(){
+	public int getDifficulty() {
 		return difficulty;
 	}
-
-
 
 	private void setLabels() {
 		// Counter Label...
@@ -151,8 +159,8 @@ public class MainController {
 	// Setting Stars initially
 	private void generateStars() {
 
-		final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager);
-		shape.start("Naggar :* ");
+		final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager, difficulty);
+		shape.start("Shapes Movement Thread");
 
 	}
 
@@ -172,18 +180,18 @@ public class MainController {
 			public void handle(final ActionEvent event) {
 				if (!Paused.getState()) {
 
-					if(initialize){
+					if (initialize) {
 						System.out.println(difficulty);
 						generateStars();
 						initialize = false;
 					}
 
-
 					// Setting Time Label
 					if (!halfSecond) {
 						countingNumbers--;
+
 						if (countingNumbers >= 0)
-						counter.setText(countingNumbers.toString());
+							counter.setText(countingNumbers.toString());
 					}
 					halfSecond = !halfSecond;
 
@@ -201,5 +209,30 @@ public class MainController {
 		oneSecond.play();
 
 	}
+
+	private void terminate() {
+		try {
+			Stage stage = (Stage) imageView.getScene().getWindow();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/GameDesign2.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			stage.setScene(new Scene(root1));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void clickSave(){
+		   saveButton.setOnAction(new EventHandler<ActionEvent>() {
+		        @Override
+		        public void handle(ActionEvent actionEvent) {
+		        	
+		        	// LOGIC HERE...
+		        	
+		        }
+		    });
+
+	}
+	
 
 }
