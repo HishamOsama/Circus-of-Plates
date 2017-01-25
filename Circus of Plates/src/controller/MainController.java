@@ -12,17 +12,18 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.gamestates.GameState;
+import model.gamestates.PausedState;
+import model.gamestates.Player1WinState;
+import model.gamestates.Player2WinsState;
+import model.gamestates.TiedState;
 import model.players.AbstractPlayer;
 import model.shapes.ShapesMovements;
 import util.DimensionsConstants;
@@ -46,11 +47,13 @@ public class MainController {
 	private Label scoreValue1;
 	@FXML
 	private Label scoreValue2;
-	
+
+	@FXML
+	private Label pauseLabel;
+
 	@FXML
 	private Button saveButton;
-	
-	
+
 	private ResourcesManager resourcesManager;
 	private Logger logger;
 	private AbstractPlayer player1, player2;
@@ -93,6 +96,13 @@ public class MainController {
 	}
 
 	private void setLabels() {
+
+		// Pause Label...
+		pauseLabel.setText("");
+		pauseLabel.setFont(new Font(30));
+		pauseLabel.setLayoutX(600);
+		pauseLabel.setLayoutY(65);
+
 		// Counter Label...
 		counter.setText(countingNumbers.toString());
 		counter.setFont(new Font(60));
@@ -190,8 +200,12 @@ public class MainController {
 					if (!halfSecond) {
 						countingNumbers--;
 
-						if (countingNumbers >= 0)
+						if (countingNumbers >= 0) {
 							counter.setText(countingNumbers.toString());
+						} else if (countingNumbers == -1) {
+							Paused.changeState();
+							terminate();
+						}
 					}
 					halfSecond = !halfSecond;
 
@@ -202,6 +216,10 @@ public class MainController {
 					scoreValue1.setText(x.toString());
 					scoreValue2.setText(y.toString());
 
+					pauseLabel.setText("");
+				} else {
+					GameState state = new PausedState();
+					pauseLabel.setText(state.printProperMessage());
 				}
 			}
 		}));
@@ -211,28 +229,39 @@ public class MainController {
 	}
 
 	private void terminate() {
-		try {
-			Stage stage = (Stage) imageView.getScene().getWindow();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/GameDesign2.fxml"));
-			Parent root1 = (Parent) fxmlLoader.load();
-			stage.setScene(new Scene(root1));
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
+		paneFXid.getChildren().clear();
+		paneFXid.getChildren().add(imageView);
+		Label l = new Label();
+		l.setText("");
+		l.setFont(new Font(30));
+		l.setLayoutX(600);
+		l.setLayoutY(65);
+		paneFXid.getChildren().add(l);
+
+		int x = scoreManager.getScore(Players.player1);
+		int y = scoreManager.getScore(Players.player2);
+
+		GameState state;
+		if (x > y) {
+			state = new Player1WinState();
+		} else if (x < y) {
+			state = new Player2WinsState();
+		} else {
+			state = new TiedState();
 		}
+		l.setText(state.printProperMessage());
 	}
-	
-	private void clickSave(){
-		   saveButton.setOnAction(new EventHandler<ActionEvent>() {
-		        @Override
-		        public void handle(ActionEvent actionEvent) {
-		        	
-		        	// LOGIC HERE...
-		        	
-		        }
-		    });
+
+	private void clickSave() {
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+
+				// LOGIC HERE...
+
+			}
+		});
 
 	}
-	
 
 }
