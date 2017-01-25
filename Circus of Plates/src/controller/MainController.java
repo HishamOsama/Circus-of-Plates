@@ -14,8 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.gamestates.GameState;
@@ -54,9 +54,6 @@ public class MainController {
 	@FXML
 	private Label pauseLabel;
 
-	@FXML
-	private Button saveButton;
-
 	private ResourcesManager resourcesManager;
 	private ScoreManager scoreManager;
 	private AbstractPlayer player1, player2;
@@ -64,6 +61,8 @@ public class MainController {
 	private boolean halfSecond = true;
 	private boolean initialize = true;
 	private int difficulty;
+	private ImageView pauseImage;
+	private ImageView saveImage;
 
 	@FXML
 	public void initialize() {
@@ -88,8 +87,6 @@ public class MainController {
 		// Make Labels following updates
 		updateLabels();
 
-		// Handling Save Button
-		save();
 	}
 
 	private void loadImages() {
@@ -121,6 +118,76 @@ public class MainController {
 		RightShelf.setY(-120);
 		RightShelf.setFitWidth(420);
 		paneFXid.getChildren().add(RightShelf);
+
+		// Buttons...
+		// Pause
+		String pausePath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "pause.png"
+				+ File.separator;
+		pausePath = new File(pausePath).toURI().toString();
+		Image pause = new Image(pausePath);
+
+		pauseImage = new ImageView(pause);
+		pauseImage.setX(0);
+		pauseImage.setY(0);
+		pauseImage.setFitWidth(50);
+		pauseImage.setFitHeight(50);
+		paneFXid.getChildren().add(pauseImage);
+
+		// Save
+		String savePath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "save.png"
+				+ File.separator;
+		savePath = new File(savePath).toURI().toString();
+		Image save = new Image(savePath);
+
+		saveImage = new ImageView(save);
+		saveImage.setX(50);
+		saveImage.setY(5);
+		saveImage.setFitWidth(40);
+		saveImage.setFitHeight(40);
+		paneFXid.getChildren().add(saveImage);
+
+		setPauseAction();
+		setSaveAction();
+
+	}
+
+	private void setPauseAction() {
+		pauseImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Paused.changeState();
+			}
+		});
+
+	}
+
+	private void setSaveAction() {
+		saveImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				// LOGIC HERE...
+				int len = Players.values().length;
+				int[] scores = new int[len];
+				for (Players t : Players.values()) {
+					scores[t.ordinal()] = scoreManager.getScore(t);
+				}
+				// GameState g = new GameState(scores, countingNumbers,
+				// difficulty);
+				PlayersStacksData[] data = new PlayersStacksData[len];
+				AbstractPlayer p1 = resourcesManager.getFirstPlayer();
+				AbstractPlayer p2 = resourcesManager.getSecondPlayer();
+				data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
+				data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
+				// Snapshot save = new Snapshot(g, data);
+				// save.saveShot(System.getProperty("user.dir"), "test");
+				// Snapshot load = new Snapshot();
+				// load.LoadDate(System.getProperty("user.dir"), "test");
+
+			}
+		});
 	}
 
 	private ImageView createP1() {
@@ -253,9 +320,9 @@ public class MainController {
 		paneFXid.getChildren().add(imageView);
 		Label l = new Label();
 		l.setText("");
-		l.setFont(new Font(30));
-		l.setLayoutX(600);
-		l.setLayoutY(65);
+		l.setFont(new Font(60));
+		l.setLayoutX(480);
+		l.setLayoutY(35);
 		paneFXid.getChildren().add(l);
 
 		int x = scoreManager.getScore(Players.player1);
@@ -287,33 +354,4 @@ public class MainController {
 
 		return dispaly;
 	}
-
-	private void save() {
-		saveButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent actionEvent) {
-
-				// LOGIC HERE...
-				int len = Players.values().length;
-				int[] scores = new int[len];
-				for (Players t : Players.values()) {
-					scores[t.ordinal()] = scoreManager.getScore(t);
-				}
-				// GameState g = new GameState(scores, countingNumbers,
-				// difficulty);
-				PlayersStacksData[] data = new PlayersStacksData[len];
-				AbstractPlayer p1 = resourcesManager.getFirstPlayer();
-				AbstractPlayer p2 = resourcesManager.getSecondPlayer();
-				data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
-				data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
-				// Snapshot save = new Snapshot(g, data);
-				// save.saveShot(System.getProperty("user.dir"), "test");
-				// Snapshot load = new Snapshot();
-				// load.LoadDate(System.getProperty("user.dir"), "test");
-
-			}
-		});
-
-	}
-
 }
