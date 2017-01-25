@@ -1,13 +1,21 @@
 package model.save;
 
-public class GameState{
+public class GameState {
 
-	private int player1Score;
-	private int player2Score;
-	private double elapsedTime;
+    private int elapsedTime;
+    private int[] scores;
 
-	public GameState() {
+    public GameState(int[] scores, int elapsedTime) {
+        this.elapsedTime = elapsedTime;
+        this.scores = scores;
+    }
 
-	}
+    public int[] getScores() {
+        return scores;
+    }
+
+    public int getElapsedTime() {
+        return elapsedTime;
+    }
 
 }
