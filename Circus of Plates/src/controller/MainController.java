@@ -74,6 +74,20 @@ public class MainController {
 		// String path = System.getProperty("user.dir") + File.separator +
 		// "Resources" + File.separator + "wallpaper.jpeg";
 		final Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
+		
+	    ImageView iv1 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
+	    iv1.setY(-120);
+	    iv1.setFitWidth(420);
+		paneFXid.getChildren().add(iv1);
+		
+
+	    ImageView iv2 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
+	    iv2.setX(830);
+	    iv2.setY(-120);
+	    iv2.setFitWidth(420);
+		paneFXid.getChildren().add(iv2);
+		
+		
 		imageView.setImage(image);
 		imageView.setFitWidth(DimensionsConstants.XBoundary);
 		imageView.setFitHeight(DimensionsConstants.YBoundary);
