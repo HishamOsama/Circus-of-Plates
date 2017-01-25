@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.gamestates.GameState;
@@ -160,37 +161,37 @@ public class MainController {
 
 		// Pause Label...
 		pauseLabel.setText("");
-		pauseLabel.setFont(new Font(30));
-		pauseLabel.setLayoutX(600);
-		pauseLabel.setLayoutY(65);
+		pauseLabel.setFont(new Font(40));
+		pauseLabel.setLayoutX(510);
+		pauseLabel.setLayoutY(105);
 
 		// Counter Label...
 		counter.setText(countingNumbers.toString());
 		counter.setFont(new Font(60));
-		counter.setLayoutX(600);
+		counter.setLayoutX(590);
 		counter.setLayoutY(35);
 
 		// Player1 Label...
 		score1.setText("Player 1");
 		score1.setFont(new Font(60));
 		score1.setLayoutX(235);
-		score1.setLayoutY(45);
+		score1.setLayoutY(125);
 
 		scoreValue1.setText("0");
 		scoreValue1.setFont(new Font(60));
 		scoreValue1.setLayoutX(310);
-		scoreValue1.setLayoutY(120);
+		scoreValue1.setLayoutY(200);
 
 		// Player2 Label...
 		score2.setText("Player 2");
 		score2.setFont(new Font(60));
 		score2.setLayoutX(800);
-		score2.setLayoutY(45);
+		score2.setLayoutY(125);
 
 		scoreValue2.setText("0");
 		scoreValue2.setFont(new Font(60));
 		scoreValue2.setLayoutX(875);
-		scoreValue2.setLayoutY(120);
+		scoreValue2.setLayoutY(200);
 	}
 
 	// Setting Stars initially
