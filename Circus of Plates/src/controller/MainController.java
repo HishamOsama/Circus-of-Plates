@@ -49,6 +49,8 @@ public class MainController {
 	private ScoreManager scoreManager;
 	private Integer countingNumbers = 60;
 	private boolean halfSecond = true;
+	private boolean initialize = true;
+	private static int difficulty;
 
 	@FXML
 	public void initialize() {
@@ -71,9 +73,18 @@ public class MainController {
 		move(paneFXid, player1, player2);
 		setLabels();
 		updateLabels();
-		generateStars();
 
 	}
+	
+	public void setDifficulty(int level){
+		difficulty = level;
+	}
+	
+	public static int getDifficulty(){
+		return difficulty;
+	}
+	
+	
 
 	private void setLabels() {
 		// Counter Label...
@@ -163,6 +174,13 @@ public class MainController {
 			public void handle(final ActionEvent event) {
 				if (!Paused.getState()) {
 
+					if(initialize){
+						System.out.println(difficulty);
+						generateStars();
+						initialize = false;
+					}
+					
+					
 					// Setting Time Label
 					if (!halfSecond) {
 						countingNumbers--;
