@@ -25,14 +25,14 @@ public class ShapesMovements extends ImageView implements Runnable {
     private final int delta;
     private final Pane fx;
     private final AbstractPlayer player1, player2;
-    //private final int speed;
+    private final int speed;
 
-    public ShapesMovements(final Pane fx, final ResourcesManager resourcesManager) {
+    public ShapesMovements(final Pane fx, final ResourcesManager resourcesManager, final int speed) {
         this.fx = fx;
         this.player1 = resourcesManager.getFirstPlayer();
         this.player2 = resourcesManager.getSecondPlayer();
         delta = DimensionsConstants.delta;
-        //this.speed = speed;
+        this.speed = speed;
     }
 
     public Color getColor() {
@@ -75,7 +75,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                 Platform.runLater(() -> fx.getChildren().add(image));;
                                                 final boolean moving = true;
                                                 //set timer speed to that indicated in level selection
-                                                final Timer timer = new Timer(50, new ActionListener() {
+                                                final Timer timer = new Timer(speed, new ActionListener() {
 
                                                     private boolean isMoving = moving;
 

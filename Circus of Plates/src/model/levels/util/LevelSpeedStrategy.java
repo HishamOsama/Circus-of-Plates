@@ -10,11 +10,10 @@ public abstract class LevelSpeedStrategy {
 	public LevelSpeedStrategy(final int speed, final MainController mainController) {
 		this.speed = speed;
 		this.mainController = mainController;
-		// we have to pass this speed to the MainController --> change Constructor
-		// Then pass it to the ShapesMovements to change speed
 	}
 
 	public void start() {
-		mainController.initialize();
+		mainController.setDifficulty(speed);
+		//mainController.initialize();
 	}
 }

@@ -12,12 +12,18 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import model.gamestates.GameState;
+import model.gamestates.PausedState;
+import model.gamestates.Player1WinState;
+import model.gamestates.Player2WinsState;
+import model.gamestates.TiedState;
 import model.players.AbstractPlayer;
 import model.shapes.ShapesMovements;
 import util.DimensionsConstants;
@@ -41,6 +47,13 @@ public class MainController {
 	private Label scoreValue1;
 	@FXML
 	private Label scoreValue2;
+
+	@FXML
+	private Label pauseLabel;
+
+	@FXML
+	private Button saveButton;
+
 	private ResourcesManager resourcesManager;
 	private Logger logger;
 	private AbstractPlayer player1, player2;
@@ -48,7 +61,7 @@ public class MainController {
 	private Integer countingNumbers = 60;
 	private boolean halfSecond = true;
 	private boolean initialize = true;
-	private static int difficulty;
+	private int difficulty;
 
 	@FXML
 	public void initialize() {
@@ -71,20 +84,25 @@ public class MainController {
 		move(paneFXid, player1, player2);
 		setLabels();
 		updateLabels();
-
+		clickSave();
 	}
 
-	public void setDifficulty(final int level){
+	public void setDifficulty(final int level) {
 		difficulty = level;
 	}
 
-	public static int getDifficulty(){
+	public int getDifficulty() {
 		return difficulty;
 	}
 
-
-
 	private void setLabels() {
+
+		// Pause Label...
+		pauseLabel.setText("");
+		pauseLabel.setFont(new Font(30));
+		pauseLabel.setLayoutX(600);
+		pauseLabel.setLayoutY(65);
+
 		// Counter Label...
 		counter.setText(countingNumbers.toString());
 		counter.setFont(new Font(60));
@@ -151,8 +169,8 @@ public class MainController {
 	// Setting Stars initially
 	private void generateStars() {
 
-		final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager);
-		shape.start("Naggar :* ");
+		final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager, difficulty);
+		shape.start("Shapes Movement Thread");
 
 	}
 
@@ -172,18 +190,22 @@ public class MainController {
 			public void handle(final ActionEvent event) {
 				if (!Paused.getState()) {
 
-					if(initialize){
+					if (initialize) {
 						System.out.println(difficulty);
 						generateStars();
 						initialize = false;
 					}
 
-
 					// Setting Time Label
 					if (!halfSecond) {
 						countingNumbers--;
-						if (countingNumbers >= 0)
-						counter.setText(countingNumbers.toString());
+
+						if (countingNumbers >= 0) {
+							counter.setText(countingNumbers.toString());
+						} else if (countingNumbers == -1) {
+							Paused.changeState();
+							terminate();
+						}
 					}
 					halfSecond = !halfSecond;
 
@@ -194,11 +216,51 @@ public class MainController {
 					scoreValue1.setText(x.toString());
 					scoreValue2.setText(y.toString());
 
+					pauseLabel.setText("");
+				} else {
+					GameState state = new PausedState();
+					pauseLabel.setText(state.printProperMessage());
 				}
 			}
 		}));
 		oneSecond.setCycleCount(Timeline.INDEFINITE);
 		oneSecond.play();
+
+	}
+
+	private void terminate() {
+		paneFXid.getChildren().clear();
+		paneFXid.getChildren().add(imageView);
+		Label l = new Label();
+		l.setText("");
+		l.setFont(new Font(30));
+		l.setLayoutX(600);
+		l.setLayoutY(65);
+		paneFXid.getChildren().add(l);
+
+		int x = scoreManager.getScore(Players.player1);
+		int y = scoreManager.getScore(Players.player2);
+
+		GameState state;
+		if (x > y) {
+			state = new Player1WinState();
+		} else if (x < y) {
+			state = new Player2WinsState();
+		} else {
+			state = new TiedState();
+		}
+		l.setText(state.printProperMessage());
+	}
+
+	private void clickSave() {
+		saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+
+				// LOGIC HERE...
+
+			}
+		});
 
 	}
 
