@@ -16,8 +16,8 @@ public class Snapshot {
         saver = XmlSaver.getInstance();
     }
 
-    public void buildGameState(int[] scores, int elapsedTime) {
-        game = new GameState(scores, elapsedTime);
+    public void buildGameState(int[] scores, int elapsedTime, int diff, double[] p1, double[] p2) {
+        game = new GameState(scores, elapsedTime, diff, p1, p2);
     }
 
     public void buildGameState(GameState game) {

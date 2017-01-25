@@ -6,6 +6,8 @@ import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import model.save.SaveShapeNode;
+import model.shapes.interfaces.Shape;
 
 /**
  * General Comments : - The blue comments are used to documentation. - The green
@@ -27,7 +29,7 @@ public class PlayersStack implements Runnable {
     /**
      * Stack that save the names of the shapes that should be distinct.
      */
-    private final Stack<Color> plates;
+    private final Stack<Shape> plates;
     /**
      * Array List that save the names of the shapes that should be distinct.
      */
@@ -64,11 +66,25 @@ public class PlayersStack implements Runnable {
      * @param plate
      *            the plate to put in the Stack.
      */
-    public void addShape(final Color plate, final ImageView image, final int indexOfStack) {
+    public void addShape(final Shape plate, final ImageView image, final int indexOfStack) {
         plates.push(plate);
         images.add(image);
         checkStack();
 
+    }
+
+    public ArrayList<SaveShapeNode> getStackShape() {
+        ArrayList<Shape> tmp = new ArrayList<>();
+        ArrayList<SaveShapeNode> wanted = new ArrayList<>();
+        while (!plates.empty()) {
+            tmp.add(plates.pop());
+        }
+        for (int i = tmp.size() - 1; i >= 0; i--) {
+            wanted.add(new SaveShapeNode(tmp.get(i).getClass().getSimpleName(), tmp.get(i).getColor(),
+                    images.get(tmp.size() - 1 - i).getX(), images.get(tmp.size() - 1 - i).getY()));
+            plates.add(tmp.get(i));
+        }
+        return wanted;
     }
 
     public int getHeight() {
@@ -82,7 +98,7 @@ public class PlayersStack implements Runnable {
      */
     private void checkStack() {
         if (plates.size() >= similarity) {
-            final Color[] platesToCheck = new Color[similarity];
+            final Shape[] platesToCheck = new Shape[similarity];
             for (int i = 0; i < similarity; i++) {
                 platesToCheck[i] = plates.pop();
             }
@@ -108,9 +124,9 @@ public class PlayersStack implements Runnable {
      * @return true -> the items are all similar false -> at least one item is
      *         not similar
      */
-    private boolean checkSimilarity(final Color[] platesToCheck) {
+    private boolean checkSimilarity(final Shape[] platesToCheck) {
         boolean allSimilar = true;
-        final Color comparator = platesToCheck[0];
+        final Color comparator = platesToCheck[0].getColor();
         for (int i = similarity - 1; i >= 0; i--) {
             if (!platesToCheck[i].equals(comparator)) {
                 allSimilar = false;

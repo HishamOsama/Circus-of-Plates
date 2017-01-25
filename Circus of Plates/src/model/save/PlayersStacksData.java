@@ -2,16 +2,14 @@ package model.save;
 
 import java.util.ArrayList;
 
-import model.shapes.interfaces.Shape;
-
 public class PlayersStacksData {
 
     private int rightStackSize;
     private int leftStackSize;
-    private ArrayList<Shape> rightHandshapes;
-    private ArrayList<Shape> leftHandshapes;
+    private ArrayList<SaveShapeNode> rightHandshapes;
+    private ArrayList<SaveShapeNode> leftHandshapes;
 
-    public PlayersStacksData(ArrayList<Shape> rightHandshapes, ArrayList<Shape> leftHandshapes) {
+    public PlayersStacksData(ArrayList<SaveShapeNode> rightHandshapes, ArrayList<SaveShapeNode> leftHandshapes) {
         this.rightHandshapes = rightHandshapes;
         this.leftHandshapes = leftHandshapes;
         rightStackSize = rightHandshapes.size();
@@ -26,11 +24,11 @@ public class PlayersStacksData {
         return leftStackSize;
     }
 
-    public ArrayList<Shape> getRightHandshapes() {
+    public ArrayList<SaveShapeNode> getRightHandshapes() {
         return rightHandshapes;
     }
 
-    public ArrayList<Shape> getlefttHandshapes() {
+    public ArrayList<SaveShapeNode> getlefttHandshapes() {
         return leftHandshapes;
     }
 
