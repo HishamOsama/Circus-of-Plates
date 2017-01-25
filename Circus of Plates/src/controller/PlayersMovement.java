@@ -43,7 +43,7 @@ public class PlayersMovement extends ImageView implements Runnable {
                         public void run() {
                             CheckPause(fPane);
                             if (!Paused.getState()) {
-                                move(fPane, (player1Image), (player2Image));
+                                Platform.runLater(() -> move(fPane, (player1Image), (player2Image)));
                             }
                         }
                     });

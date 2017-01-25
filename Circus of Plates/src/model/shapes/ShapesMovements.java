@@ -83,7 +83,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                     public void actionPerformed(final ActionEvent e) {
                                                         if (!Paused.getState()) {
                                                             if (isMoving) {
-                                                                move(image, shape.getOrigin());
+                                                                Platform.runLater(() -> move(image, shape.getOrigin()));;
                                                                 if (isOutOfSight(image)) {
                                                                 	//image.setVisible(false);
                                                                 	Platform.runLater(() -> fx.getChildren().remove(image));
