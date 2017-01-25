@@ -103,12 +103,13 @@ public class PlayersStack implements Runnable {
                 platesToCheck[i] = plates.pop();
             }
             final boolean allSimilar = checkSimilarity(platesToCheck);
-
+            
             if (allSimilar) {
-
+            	System.out.println("HELLO!!!!!");
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
                     final ImageView im = images.remove(images.size() - 1);
+                    //im.setVisible(false);
                     Platform.runLater(() -> player.removeFromPane(im));
                 }
                 updateScore();
@@ -128,7 +129,7 @@ public class PlayersStack implements Runnable {
         boolean allSimilar = true;
         final Color comparator = platesToCheck[0].getColor();
         for (int i = similarity - 1; i >= 0; i--) {
-            if (!platesToCheck[i].equals(comparator)) {
+            if (!platesToCheck[i].getColor().equals(comparator)) {
                 allSimilar = false;
             }
             plates.push(platesToCheck[i]);
