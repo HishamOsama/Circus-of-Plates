@@ -72,7 +72,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                 image.setFitWidth(DimensionsConstants.IMAGE_SIZE);
                                                 image.setX(lastOrign);
                                                 image.setY(DimensionsConstants.INITIAL_Y);
-                                                fx.getChildren().add(image);
+                                                Platform.runLater(() -> fx.getChildren().add(image));;
                                                 final boolean moving = true;
                                                 //set timer speed to that indicated in level selection
                                                 final Timer timer = new Timer(50, new ActionListener() {
