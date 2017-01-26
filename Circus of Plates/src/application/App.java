@@ -29,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logging.Logging;
 import model.levels.HighSpeed;
 import model.levels.LowSpeed;
 import model.levels.MediumSpeed;
@@ -122,7 +123,7 @@ public class App extends Application {
 
             getChildren().addAll(c1, text, c2);
             setActive(false);
-            setOnActivate(() -> System.out.println(name + " activated"));
+            setOnActivate(() -> Logging.debug(name + " activated"));
         }
 
         public void setActive(boolean b) {

@@ -4,6 +4,7 @@ package model.shapes;
 import java.io.File;
 
 import javafx.scene.paint.Color;
+import logging.Logging;
 import model.shapes.interfaces.StarShape;
 import model.shapes.util.ImageConstants;
 import model.shapes.util.PlatesFactory;
@@ -12,7 +13,7 @@ public class YellowStar extends StarShape {
 
 	static {
 		PlatesFactory.getInstance().registerShape("YellowStar", YellowStar.class);
-		System.out.println("Static Initializer Executed");
+		Logging.debug("Static Initializer Executed");
 	}
 
 	public YellowStar() {

@@ -6,6 +6,7 @@ import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import logging.Logging;
 import model.save.SaveShapeNode;
 import model.shapes.interfaces.Shape;
 
@@ -103,7 +104,7 @@ public class PlayersStack implements Runnable {
             final boolean allSimilar = checkSimilarity(platesToCheck);
             
             if (allSimilar) {
-            	System.out.println("HELLO!!!!!");
+            	Logging.debug("HELLO!!!!!");
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
                     final ImageView im = images.remove(images.size() - 1);

@@ -3,6 +3,7 @@ package model.shapes;
 import java.io.File;
 
 import javafx.scene.paint.Color;
+import logging.Logging;
 import model.shapes.interfaces.Shape;
 import model.shapes.util.ImageConstants;
 import model.shapes.util.PlatesFactory;
@@ -11,7 +12,7 @@ public class YellowGift extends Shape{
 
 	static {
         PlatesFactory.getInstance().registerShape("YellowGift", YellowGift.class);
-        System.out.println("Static Initializer Executed");
+        Logging.debug("Static Initializer Executed");
     }
 
 	public YellowGift() {

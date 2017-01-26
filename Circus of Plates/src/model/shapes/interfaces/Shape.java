@@ -34,7 +34,7 @@ public abstract class Shape {
         imageFile = new File(imagePath);
         try {
             image = ImageIO.read(imageFile);
-            System.out.println("Image Loaded Successfully");
+            Logging.debug("Image Loaded Successfully");
         } catch (final IOException e) {
             e.printStackTrace();
         }

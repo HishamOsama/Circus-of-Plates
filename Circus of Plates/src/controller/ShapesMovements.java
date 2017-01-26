@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import logging.Logging;
 import model.players.AbstractPlayer;
 import model.shapes.interfaces.Shape;
 import util.DimensionsConstants;
@@ -114,7 +115,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                     }
                                                 });
                                                 timer.start();
-                                                System.out.println("finally out");
+                                                Logging.debug("finally out");
                                             }
                                         }
 

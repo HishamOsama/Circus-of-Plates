@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import logging.Logging;
 import model.gamestates.GameState;
 import model.gamestates.PausedState;
 import model.gamestates.Player1WinState;
@@ -264,7 +265,7 @@ public class MainController {
     private void generateStars() {
 
         final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager, difficulty);
-        
+
         shape.start("Shapes Movement Thread");
 
     }
@@ -278,7 +279,7 @@ public class MainController {
                 if (!Paused.getState()) {
 
                     if (initialize) {
-                        System.out.println(difficulty);
+                        Logging.debug(String.valueOf(difficulty));
                         generateStars();
                         initialize = false;
                     }
