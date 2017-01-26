@@ -71,6 +71,11 @@ public class PlayersMovement extends ImageView implements Runnable {
                         if (keyCode == KeyCode.P) {
                             Paused.changeState();
                         }
+                        if (keyCode == KeyCode.S){
+                            MainController mainController = new MainController();
+                            mainController.setSave();
+                        }
+                        
                         if (!Paused.getState()) {
                             if (keyCode == KeyCode.RIGHT && player1.getX() < 1050) {
                                 player1.setX(player1.getX() + KEYBOARD_MOVEMENT_DELTA);

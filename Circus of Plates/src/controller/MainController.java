@@ -31,7 +31,6 @@ import model.save.PlayersStacksData;
 import model.save.SaveShapeNode;
 import model.save.SavedStates;
 import model.save.Snapshot;
-import controller.ShapesMovements;
 import model.shapes.interfaces.Shape;
 import model.shapes.util.PlatesFactory;
 import util.DimensionsConstants;
@@ -179,51 +178,52 @@ public class MainController {
             @Override
             public void handle(final MouseEvent event) {
 
-                
-                Paused.setState(true);
-
-                // File Chooser
-                final FileChooser fileChooser = new FileChooser();
-
-                // Set extension filter
-                final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)",
-                        "*.xml");
-
-                fileChooser.getExtensionFilters().addAll(extFilter);
-
-                // Show save file dialog
-                try{
-                    final File path = fileChooser.showSaveDialog(null);
-                    
-                    final String pathString = path.toString();
-                    final File f = new File(pathString);
-                    final String fileName = f.getName().substring(0, f.getName().indexOf('.'));
-                    final String absoulutePath = (pathString.substring(0, pathString.indexOf(fileName)));
-                    // Getting Scores
-                    final int len = Players.values().length;
-                    final int[] scores = new int[len];
-                    for (final Players t : Players.values()) {
-                        scores[t.ordinal()] = scoreManager.getScore(t);
-                    }
-                    // Getting Players for positions and StackLists
-                    final AbstractPlayer p1 = resourcesManager.getFirstPlayer();
-                    final AbstractPlayer p2 = resourcesManager.getSecondPlayer();
-                    final SavedStates savedStates = new SavedStates(scores, countingNumbers, difficulty,
-                            p1.getPlayerPosition()[0], p2.getPlayerPosition()[0]);
-                    final PlayersStacksData[] data = new PlayersStacksData[len];
-                    data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
-                    data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
-                    final Snapshot save = new Snapshot(savedStates, data);
-                    save.saveShot(absoulutePath, fileName);
-                    // Snapshot load = new Snapshot();
-                    // load.LoadDate(System.getProperty("user.dir"), "test");
-                } catch (Exception e){
-                    // Do nothing...
-                }
-                
+                setSave();
 
             }
         });
+    }
+
+    public void setSave() {
+        Paused.setState(true);
+
+        // File Chooser
+        final FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+
+        fileChooser.getExtensionFilters().addAll(extFilter);
+
+        // Show save file dialog
+        try {
+            final File path = fileChooser.showSaveDialog(null);
+
+            final String pathString = path.toString();
+            final File f = new File(pathString);
+            final String fileName = f.getName().substring(0, f.getName().indexOf('.'));
+            final String absoulutePath = (pathString.substring(0, pathString.indexOf(fileName)));
+            // Getting Scores
+            final int len = Players.values().length;
+            final int[] scores = new int[len];
+            for (final Players t : Players.values()) {
+                scores[t.ordinal()] = scoreManager.getScore(t);
+            }
+            // Getting Players for positions and StackLists
+            final AbstractPlayer p1 = resourcesManager.getFirstPlayer();
+            final AbstractPlayer p2 = resourcesManager.getSecondPlayer();
+            final SavedStates savedStates = new SavedStates(scores, countingNumbers, difficulty,
+                    p1.getPlayerPosition()[0], p2.getPlayerPosition()[0]);
+            final PlayersStacksData[] data = new PlayersStacksData[len];
+            data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
+            data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
+            final Snapshot save = new Snapshot(savedStates, data);
+            save.saveShot(absoulutePath, fileName);
+            // Snapshot load = new Snapshot();
+            // load.LoadDate(System.getProperty("user.dir"), "test");
+        } catch (Exception e) {
+            // Do nothing...
+        }
     }
 
     private ImageView createP1() {
@@ -413,6 +413,14 @@ public class MainController {
         player1Imgae.setY(savedStates.getP(0)[1]);
         player2Imgae.setX(savedStates.getP(1)[0]);
         player2Imgae.setY(savedStates.getP(1)[1]);
+        for (int i = 0; i < savedStates.getScores()[0]; i++){
+            player1.incrementScore();
+            scoreManager.update(0);
+        }
+        for (int i = 0; i < savedStates.getScores()[1]; i++){
+            player2.incrementScore();
+            scoreManager.update(1);
+        }
         fetchLoadedPlates(data);
     }
 
