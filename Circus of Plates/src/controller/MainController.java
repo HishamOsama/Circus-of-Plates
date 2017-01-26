@@ -264,6 +264,7 @@ public class MainController {
     private void generateStars() {
 
         final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager, difficulty);
+        
         shape.start("Shapes Movement Thread");
 
     }

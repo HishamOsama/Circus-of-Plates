@@ -46,7 +46,7 @@ public class ShapesMovements extends ImageView implements Runnable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     private int counter = 0;
-                    //private final PlatesPool platesPool = new PlatesPool();
+                    // private final PlatesPool platesPool = new PlatesPool();
                     private int lastOrign = 0;
 
                     @Override
@@ -62,8 +62,7 @@ public class ShapesMovements extends ImageView implements Runnable {
 
                                                 final Shape shape = resourcesManager.getPlate();
 
-                                                lastOrign =
-                                                		DimensionsConstants.ALTERNATING_FACTOR - lastOrign;
+                                                lastOrign = DimensionsConstants.ALTERNATING_FACTOR - lastOrign;
 
                                                 shape.setOrigin(lastOrign);
 
@@ -72,9 +71,11 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                 image.setFitWidth(DimensionsConstants.IMAGE_SIZE);
                                                 image.setX(lastOrign);
                                                 image.setY(DimensionsConstants.INITIAL_Y);
-                                                Platform.runLater(() -> fx.getChildren().add(image));;
+                                                Platform.runLater(() -> fx.getChildren().add(image));
+                                                ;
                                                 final boolean moving = true;
-                                                //set timer speed to that indicated in level selection
+                                                // set timer speed to that
+                                                // indicated in level selection
                                                 final Timer timer = new Timer(speed, new ActionListener() {
 
                                                     private boolean isMoving = moving;
@@ -83,12 +84,15 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                     public void actionPerformed(final ActionEvent e) {
                                                         if (!Paused.getState()) {
                                                             if (isMoving) {
-                                                                Platform.runLater(() -> move(image, shape.getOrigin()));;
+                                                                Platform.runLater(() -> move(image, shape.getOrigin()));
+                                                                ;
                                                                 if (isOutOfSight(image)) {
-                                                                	//image.setVisible(false);
-                                                                	Platform.runLater(() -> fx.getChildren().remove(image));
-//                                                                	((Timer) e.getSource()).stop();
-//                                                                	resourcesManager.returnPlate(shape);
+                                                                    // image.setVisible(false);
+                                                                    Platform.runLater(
+                                                                            () -> fx.getChildren().remove(image));
+                                                                    // ((Timer)
+                                                                    // e.getSource()).stop();
+                                                                    // resourcesManager.returnPlate(shape);
                                                                 }
                                                                 final CheckResult tmp = player1
                                                                         .check((int) image.getX(), (int) image.getY());
@@ -114,8 +118,6 @@ public class ShapesMovements extends ImageView implements Runnable {
                                             }
                                         }
 
-
-
                                     });
                                     try {
                                         Thread.sleep(2000);
@@ -139,8 +141,8 @@ public class ShapesMovements extends ImageView implements Runnable {
     }
 
     public void move(final ImageView image, final int origin) {
-        if (origin == DimensionsConstants.ALTERNATING_FACTOR ) {
-            if (image.getX() < DimensionsConstants.leftEdgePosition ) {
+        if (origin == DimensionsConstants.ALTERNATING_FACTOR) {
+            if (image.getX() < DimensionsConstants.leftEdgePosition) {
                 image.setY(delta * delta + image.getY());
             }
             image.setX(image.getX() - delta);
@@ -161,13 +163,13 @@ public class ShapesMovements extends ImageView implements Runnable {
     }
 
     private boolean isOutOfSight(final ImageView image) {
-    	if (image.getX() > DimensionsConstants.XBoundary || image.getX() < 0 - DimensionsConstants.IMAGE_SIZE) {
-    		return true;
-    	}
-    	if (image.getY() > DimensionsConstants.YBoundary || image.getY() < 0 - DimensionsConstants.IMAGE_SIZE) {
-    		return true;
-    	}
-    	return false;
+        if (image.getX() > DimensionsConstants.XBoundary || image.getX() < 0 - DimensionsConstants.IMAGE_SIZE) {
+            return true;
+        }
+        if (image.getY() > DimensionsConstants.YBoundary || image.getY() < 0 - DimensionsConstants.IMAGE_SIZE) {
+            return true;
+        }
+        return false;
     }
 
     @Override

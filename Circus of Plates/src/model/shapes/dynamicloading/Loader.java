@@ -1,12 +1,9 @@
 package model.shapes.dynamicloading;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import model.shapes.RedStar;
 import model.shapes.interfaces.Shape;
 
 public class Loader {

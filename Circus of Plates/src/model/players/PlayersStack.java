@@ -45,13 +45,11 @@ public class PlayersStack implements Runnable {
     /**
      * Thread for stack
      */
-    private Thread thread, bigThread;
+    private Thread thread;
     /**
      * to determin Which stack
      */
     private final int index;
-    private final int counter = 0;
-
     public PlayersStack(final AbstractPlayer player, final int index) {
         plates = new Stack<>();
         images = new ArrayList<>();

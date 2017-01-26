@@ -195,6 +195,7 @@ public class App extends Application {
         });
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(event -> {
+
             bgThread.shutdownNow();
         });
         primaryStage.show();
