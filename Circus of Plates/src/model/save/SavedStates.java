@@ -1,18 +1,18 @@
 package model.save;
 
-public class GameState {
+public class SavedStates {
 
-    private int elapsedTime;
-    private int[] scores;
-    private int diff;
+    private final int elapsedTime;
+    private final int[] scores;
+    private final int diff;
 
-    private double[][] pS;
+    private final int[][] pS;
 
-    public GameState(int[] scores, int elapsedTime, int diff, double[] p1, double[] p2) {
+    public SavedStates(final int[] scores, final int elapsedTime, final int diff, final int[] p1, final int[] p2) {
         this.elapsedTime = elapsedTime;
         this.scores = scores;
         this.diff = diff;
-        pS = new double[2][];
+        pS = new int[2][];
         pS[0] = p1;
         pS[1] = p2;
     }
@@ -29,7 +29,7 @@ public class GameState {
         return diff;
     }
 
-    public double[] getP(int index) {
+    public int[] getP(final int index) {
         return pS[index];
     }
     public int getPsLength() {

@@ -50,7 +50,7 @@ public abstract class AbstractPlayer implements Observable {
 
     }
 
-    public ArrayList<SaveShapeNode> getStackList(int index) {
+    public ArrayList<SaveShapeNode> getStackList(final int index) {
         return stacks[index].getStackShape();
     }
 
@@ -74,6 +74,11 @@ public abstract class AbstractPlayer implements Observable {
 
     public int[][] getPlayerPosition() {
         return playerPosition;
+    }
+
+    public void setPlayerPosition(final int[] position) {
+        playerPosition[0][0] = position[0];
+        playerPosition[0][1] = position[1];
     }
 
     public void setPoints(final double x, final double y, final float hight) {
