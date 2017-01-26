@@ -1,4 +1,4 @@
-package model.shapes;
+package model.shapes.pool;
 
 import java.util.ArrayList;
 import java.util.Collections;

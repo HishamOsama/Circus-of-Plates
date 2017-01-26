@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 import model.players.AbstractPlayer;
 import model.players.Player1;
 import model.players.Player2;
-import model.shapes.PlatesPool;
 import model.shapes.interfaces.Shape;
+import model.shapes.pool.PlatesPool;
 
 public class ResourcesManager {
 

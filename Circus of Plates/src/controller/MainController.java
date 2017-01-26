@@ -1,9 +1,7 @@
 package controller;
 
 import java.awt.image.BufferedImage;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.io.File;
 
 import controller.util.Enumrations.Players;
 import javafx.animation.KeyFrame;
@@ -16,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -26,8 +25,6 @@ import model.gamestates.Player2WinsState;
 import model.gamestates.TiedState;
 import model.players.AbstractPlayer;
 import model.save.PlayersStacksData;
-import model.save.Snapshot;
-import model.shapes.ShapesMovements;
 import util.DimensionsConstants;
 
 public class MainController {
@@ -43,105 +40,153 @@ public class MainController {
 
     @FXML
     private Label score1;
+
     @FXML
     private Label score2;
+
     @FXML
     private Label scoreValue1;
+
     @FXML
     private Label scoreValue2;
 
     @FXML
     private Label pauseLabel;
 
-    @FXML
-    private Button saveButton;
-
     private ResourcesManager resourcesManager;
-    
-    private AbstractPlayer player1, player2;
     private ScoreManager scoreManager;
+    private AbstractPlayer player1, player2;
     private Integer countingNumbers = 60;
     private boolean halfSecond = true;
     private boolean initialize = true;
     private int difficulty;
+    private ImageView pauseImage;
+    private ImageView saveImage;
 
     @FXML
     public void initialize() {
 
-        scoreManager = ScoreManager.getInstance();
-        // Setting the pane to the Stack Remover
+        // Calling Appropriate Mangers
         resourcesManager = new ResourcesManager(paneFXid);
+        scoreManager = ScoreManager.getInstance();
+
+        // Load Background Images
+        loadImages();
+
+        // Load Players
+        final ImageView player1 = createP1();
+        final ImageView player2 = createP2();
+
+        // Make Players Movable
+        move(paneFXid, player1, player2);
+
+        // Set Labels with appropriate data
+        setLabels();
+
+        // Make Labels following updates
+        updateLabels();
+
+    }
+
+    private void loadImages() {
         // Background...
-        // String path = System.getProperty("user.dir") + File.separator +
-        // "Resources" + File.separator + "wallpaper.jpeg";
-        final Image image = new Image("http://eskipaper.com/images/circus-wallpaper-2.jpg");
-
-        ImageView iv1 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
-        iv1.setY(-120);
-        iv1.setFitWidth(420);
-        paneFXid.getChildren().add(iv1);
-
-        ImageView iv2 = new ImageView(new Image("http://www.stevemaraboli.com/shelf_png.png"));
-        iv2.setX(830);
-        iv2.setY(-120);
-        iv2.setFitWidth(420);
-        paneFXid.getChildren().add(iv2);
-
-        imageView.setImage(image);
+        String backgroundPath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator
+                + "wallpaper.jpg" + File.separator;
+        backgroundPath = new File(backgroundPath).toURI().toString();
+        Image backgroundImage = new Image(backgroundPath);
+        imageView.setImage(backgroundImage);
         imageView.setFitWidth(DimensionsConstants.XBoundary);
         imageView.setFitHeight(DimensionsConstants.YBoundary);
 
-        final ImageView player1 = createP1();
-        final ImageView player2 = createP2();
-        move(paneFXid, player1, player2);
-        setLabels();
-        updateLabels();
-        clickSave();
+        // Shelf...
+        String shelfPath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "shelf.png"
+                + File.separator;
+        shelfPath = new File(shelfPath).toURI().toString();
+        Image shelfImage = new Image(shelfPath);
+
+        // Left Shelf...
+        ImageView leftShelf = new ImageView(shelfImage);
+        leftShelf.setX(-50);
+        leftShelf.setY(-120);
+        leftShelf.setFitWidth(470);
+        paneFXid.getChildren().add(leftShelf);
+
+        // Right Shelf...
+        ImageView RightShelf = new ImageView(shelfImage);
+        RightShelf.setX(830);
+        RightShelf.setY(-120);
+        RightShelf.setFitWidth(420);
+        paneFXid.getChildren().add(RightShelf);
+
+        // Buttons...
+        // Pause
+        String pausePath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "pause.png"
+                + File.separator;
+        pausePath = new File(pausePath).toURI().toString();
+        Image pause = new Image(pausePath);
+
+        pauseImage = new ImageView(pause);
+        pauseImage.setX(0);
+        pauseImage.setY(0);
+        pauseImage.setFitWidth(50);
+        pauseImage.setFitHeight(50);
+        paneFXid.getChildren().add(pauseImage);
+
+        // Save
+        String savePath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "save.png"
+                + File.separator;
+        savePath = new File(savePath).toURI().toString();
+        Image save = new Image(savePath);
+
+        saveImage = new ImageView(save);
+        saveImage.setX(50);
+        saveImage.setY(5);
+        saveImage.setFitWidth(40);
+        saveImage.setFitHeight(40);
+        paneFXid.getChildren().add(saveImage);
+
+        setPauseAction();
+        setSaveAction();
+
     }
 
-    public void setDifficulty(final int level) {
-        difficulty = level;
+    private void setPauseAction() {
+        pauseImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                Paused.changeState();
+            }
+        });
+
     }
 
-    public int getDifficulty() {
-        return difficulty;
-    }
+    private void setSaveAction() {
+        saveImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
-    private void setLabels() {
+            @Override
+            public void handle(MouseEvent event) {
 
-        // Pause Label...
-        pauseLabel.setText("");
-        pauseLabel.setFont(new Font(30));
-        pauseLabel.setLayoutX(600);
-        pauseLabel.setLayoutY(65);
+                // LOGIC HERE...
+                int len = Players.values().length;
+                int[] scores = new int[len];
+                for (Players t : Players.values()) {
+                    scores[t.ordinal()] = scoreManager.getScore(t);
+                }
+                // GameState g = new GameState(scores, countingNumbers,
+                // difficulty);
+                PlayersStacksData[] data = new PlayersStacksData[len];
+                AbstractPlayer p1 = resourcesManager.getFirstPlayer();
+                AbstractPlayer p2 = resourcesManager.getSecondPlayer();
+                data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
+                data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
+                // Snapshot save = new Snapshot(g, data);
+                // save.saveShot(System.getProperty("user.dir"), "test");
+                // Snapshot load = new Snapshot();
+                // load.LoadDate(System.getProperty("user.dir"), "test");
 
-        // Counter Label...
-        counter.setText(countingNumbers.toString());
-        counter.setFont(new Font(60));
-        counter.setLayoutX(600);
-        counter.setLayoutY(35);
-
-        // Player1 Label...
-        score1.setText("Player 1");
-        score1.setFont(new Font(60));
-        score1.setLayoutX(235);
-        score1.setLayoutY(45);
-
-        scoreValue1.setText("0");
-        scoreValue1.setFont(new Font(60));
-        scoreValue1.setLayoutX(310);
-        scoreValue1.setLayoutY(120);
-
-        // Player2 Label...
-        score2.setText("Player 2");
-        score2.setFont(new Font(60));
-        score2.setLayoutX(800);
-        score2.setLayoutY(45);
-
-        scoreValue2.setText("0");
-        scoreValue2.setFont(new Font(60));
-        scoreValue2.setLayoutX(875);
-        scoreValue2.setLayoutY(120);
+            }
+        });
     }
 
     private ImageView createP1() {
@@ -178,20 +223,49 @@ public class MainController {
         playersMovement.start();
     }
 
+    private void setLabels() {
+
+        // Pause Label...
+        pauseLabel.setText("");
+        pauseLabel.setFont(new Font(40));
+        pauseLabel.setLayoutX(510);
+        pauseLabel.setLayoutY(105);
+
+        // Counter Label...
+        counter.setText(countingNumbers.toString());
+        counter.setFont(new Font(60));
+        counter.setLayoutX(590);
+        counter.setLayoutY(35);
+
+        // Player1 Label...
+        score1.setText("Player 1");
+        score1.setFont(new Font(60));
+        score1.setLayoutX(235);
+        score1.setLayoutY(125);
+
+        scoreValue1.setText("0");
+        scoreValue1.setFont(new Font(60));
+        scoreValue1.setLayoutX(310);
+        scoreValue1.setLayoutY(200);
+
+        // Player2 Label...
+        score2.setText("Player 2");
+        score2.setFont(new Font(60));
+        score2.setLayoutX(800);
+        score2.setLayoutY(125);
+
+        scoreValue2.setText("0");
+        scoreValue2.setFont(new Font(60));
+        scoreValue2.setLayoutX(875);
+        scoreValue2.setLayoutY(200);
+    }
+
     // Setting Stars initially
     private void generateStars() {
 
         final ShapesMovements shape = new ShapesMovements(paneFXid, resourcesManager, difficulty);
         shape.start("Shapes Movement Thread");
 
-    }
-
-    private ImageView convertImage(final BufferedImage image) {
-        final Image imageF = SwingFXUtils.toFXImage(image, null);
-
-        final ImageView dispaly = new ImageView(imageF);
-
-        return dispaly;
     }
 
     private void updateLabels() {
@@ -245,9 +319,9 @@ public class MainController {
         paneFXid.getChildren().add(imageView);
         Label l = new Label();
         l.setText("");
-        l.setFont(new Font(30));
-        l.setLayoutX(600);
-        l.setLayoutY(65);
+        l.setFont(new Font(60));
+        l.setLayoutX(480);
+        l.setLayoutY(35);
         paneFXid.getChildren().add(l);
 
         int x = scoreManager.getScore(Players.player1);
@@ -264,32 +338,19 @@ public class MainController {
         l.setText(state.printProperMessage());
     }
 
-    private void clickSave() {
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-
-                // LOGIC HERE...
-                int len = Players.values().length;
-                int[] scores = new int[len];
-                for (Players t : Players.values()) {
-                    scores[t.ordinal()] = scoreManager.getScore(t);
-                }
-                // GameState g = new GameState(scores, countingNumbers,
-                // difficulty);
-                PlayersStacksData[] data = new PlayersStacksData[len];
-                AbstractPlayer p1 = resourcesManager.getFirstPlayer();
-                AbstractPlayer p2 = resourcesManager.getSecondPlayer();
-                data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
-                data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
-                // Snapshot save = new Snapshot(g, data);
-                // save.saveShot(System.getProperty("user.dir"), "test");
-                // Snapshot load = new Snapshot();
-                // load.LoadDate(System.getProperty("user.dir"), "test");
-
-            }
-        });
-
+    public void setDifficulty(final int level) {
+        difficulty = level;
     }
 
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    private ImageView convertImage(final BufferedImage image) {
+        final Image imageF = SwingFXUtils.toFXImage(image, null);
+
+        final ImageView dispaly = new ImageView(imageF);
+
+        return dispaly;
+    }
 }

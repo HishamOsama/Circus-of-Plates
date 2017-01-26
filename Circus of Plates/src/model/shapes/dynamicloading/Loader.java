@@ -16,6 +16,7 @@ public class Loader {
     private static final String classExt = ".class";
     private static final String ShapeDir = "model" + File.separator + "shapes" + File.separator;
     private static final String BiName = "model.shapes.";
+    
 
     private Loader() {
 

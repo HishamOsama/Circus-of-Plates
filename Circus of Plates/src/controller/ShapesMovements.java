@@ -1,4 +1,4 @@
-package model.shapes;
+package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,9 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
-import controller.Paused;
 import controller.PlateFetching.CheckResult;
-import controller.ResourcesManager;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -26,6 +24,7 @@ public class ShapesMovements extends ImageView implements Runnable {
     private final Pane fx;
     private final AbstractPlayer player1, player2;
     private final int speed;
+    private final ResourcesManager resourcesManager;
 
     public ShapesMovements(final Pane fx, final ResourcesManager resourcesManager, final int speed) {
         this.fx = fx;
@@ -33,6 +32,7 @@ public class ShapesMovements extends ImageView implements Runnable {
         this.player2 = resourcesManager.getSecondPlayer();
         delta = DimensionsConstants.delta;
         this.speed = speed;
+        this.resourcesManager = resourcesManager;
     }
 
     public Color getColor() {
@@ -46,7 +46,7 @@ public class ShapesMovements extends ImageView implements Runnable {
             public void run() {
                 Platform.runLater(new Runnable() {
                     private int counter = 0;
-                    private final PlatesPool platesPool = new PlatesPool();
+                    //private final PlatesPool platesPool = new PlatesPool();
                     private int lastOrign = 0;
 
                     @Override
@@ -60,7 +60,7 @@ public class ShapesMovements extends ImageView implements Runnable {
                                         public void run() {
                                             if (!Paused.getState()) {
 
-                                                final Shape shape = platesPool.getPlate();
+                                                final Shape shape = resourcesManager.getPlate();
 
                                                 lastOrign =
                                                 		DimensionsConstants.ALTERNATING_FACTOR - lastOrign;
@@ -87,8 +87,8 @@ public class ShapesMovements extends ImageView implements Runnable {
                                                                 if (isOutOfSight(image)) {
                                                                 	//image.setVisible(false);
                                                                 	Platform.runLater(() -> fx.getChildren().remove(image));
-
-                                                                	//platesPool.returnPlate(shape);
+//                                                                	((Timer) e.getSource()).stop();
+//                                                                	resourcesManager.returnPlate(shape);
                                                                 }
                                                                 final CheckResult tmp = player1
                                                                         .check((int) image.getX(), (int) image.getY());
@@ -109,8 +109,8 @@ public class ShapesMovements extends ImageView implements Runnable {
 
                                                     }
                                                 });
-
                                                 timer.start();
+                                                System.out.println("finally out");
                                             }
                                         }
 

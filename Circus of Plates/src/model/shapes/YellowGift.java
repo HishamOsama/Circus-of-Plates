@@ -1,21 +1,20 @@
 package model.shapes;
 
-
 import java.io.File;
 
 import javafx.scene.paint.Color;
-import model.shapes.interfaces.StarShape;
+import model.shapes.interfaces.Shape;
 import model.shapes.util.ImageConstants;
 import model.shapes.util.PlatesFactory;
 
-public class YellowStar extends StarShape {
+public class YellowGift extends Shape{
 
 	static {
-		PlatesFactory.getInstance().registerShape("YellowStar", YellowStar.class);
-		System.out.println("Static Initializer Executed");
-	}
+        PlatesFactory.getInstance().registerShape("YellowGift", YellowGift.class);
+        System.out.println("Static Initializer Executed");
+    }
 
-	public YellowStar() {
+	public YellowGift() {
 		super();
 		shapeColor = Color.YELLOW;
 		for (final String extension : ImageConstants.RESERVED_IMAGE_EXTENSIONS) {
@@ -28,5 +27,4 @@ public class YellowStar extends StarShape {
 			}
 		}
 	}
-
 }

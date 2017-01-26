@@ -1,6 +1,4 @@
-package model.shapes;
-
-import model.shapes.interfaces.Shape;
+package model.shapes.interfaces;
 
 public abstract class StarShape extends Shape {
 
