@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+import logging.Logging;
 import model.gamestates.GameState;
 import model.gamestates.PausedState;
 import model.gamestates.Player1WinState;
@@ -178,7 +179,8 @@ public class MainController {
             @Override
             public void handle(final MouseEvent event) {
 
-                Paused.changeState();
+                
+                Paused.setState(true);
 
                 // File Chooser
                 final FileChooser fileChooser = new FileChooser();
@@ -190,29 +192,35 @@ public class MainController {
                 fileChooser.getExtensionFilters().addAll(extFilter);
 
                 // Show save file dialog
-                final File path = fileChooser.showSaveDialog(null);
-                final String pathString = path.toString();
-                final File f = new File(pathString);
-                final String fileName = f.getName().substring(0, f.getName().indexOf('.'));
-                final String absoulutePath = (pathString.substring(0, pathString.indexOf(fileName)));
-                // Getting Scores
-                final int len = Players.values().length;
-                final int[] scores = new int[len];
-                for (final Players t : Players.values()) {
-                    scores[t.ordinal()] = scoreManager.getScore(t);
+                try{
+                    final File path = fileChooser.showSaveDialog(null);
+                    
+                    final String pathString = path.toString();
+                    final File f = new File(pathString);
+                    final String fileName = f.getName().substring(0, f.getName().indexOf('.'));
+                    final String absoulutePath = (pathString.substring(0, pathString.indexOf(fileName)));
+                    // Getting Scores
+                    final int len = Players.values().length;
+                    final int[] scores = new int[len];
+                    for (final Players t : Players.values()) {
+                        scores[t.ordinal()] = scoreManager.getScore(t);
+                    }
+                    // Getting Players for positions and StackLists
+                    final AbstractPlayer p1 = resourcesManager.getFirstPlayer();
+                    final AbstractPlayer p2 = resourcesManager.getSecondPlayer();
+                    final SavedStates savedStates = new SavedStates(scores, countingNumbers, difficulty,
+                            p1.getPlayerPosition()[0], p2.getPlayerPosition()[0]);
+                    final PlayersStacksData[] data = new PlayersStacksData[len];
+                    data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
+                    data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
+                    final Snapshot save = new Snapshot(savedStates, data);
+                    save.saveShot(absoulutePath, fileName);
+                    // Snapshot load = new Snapshot();
+                    // load.LoadDate(System.getProperty("user.dir"), "test");
+                } catch (Exception e){
+                    // Do nothing...
                 }
-                // Getting Players for positions and StackLists
-                final AbstractPlayer p1 = resourcesManager.getFirstPlayer();
-                final AbstractPlayer p2 = resourcesManager.getSecondPlayer();
-                final SavedStates savedStates = new SavedStates(scores, countingNumbers, difficulty,
-                        p1.getPlayerPosition()[0], p2.getPlayerPosition()[0]);
-                final PlayersStacksData[] data = new PlayersStacksData[len];
-                data[0] = new PlayersStacksData(p1.getStackList(0), p1.getStackList(1));
-                data[1] = new PlayersStacksData(p2.getStackList(0), p2.getStackList(1));
-                final Snapshot save = new Snapshot(savedStates, data);
-                save.saveShot(absoulutePath, fileName);
-                // Snapshot load = new Snapshot();
-                // load.LoadDate(System.getProperty("user.dir"), "test");
+                
 
             }
         });
@@ -322,7 +330,7 @@ public class MainController {
                 if (!Paused.getState()) {
 
                     if (initialize) {
-                        System.out.println(difficulty);
+                        Logging.info(String.valueOf(difficulty));
                         generateStars();
                         initialize = false;
                     }

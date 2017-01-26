@@ -13,6 +13,7 @@ import controller.ResourcesManager;
 import controller.util.Enumrations.Players;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import logging.Logging;
 import model.players.util.Observable;
 import model.players.util.Observer;
 import model.save.SaveShapeNode;
@@ -55,7 +56,7 @@ public abstract class AbstractPlayer implements Observable {
     }
 
     public void receivePlate(final int index, final Shape plate, final ImageView image) {
-        System.out.println(index);
+        Logging.info(String.valueOf(index));
         stacks[index].addShape(plate, image, index);
 
     }
@@ -102,7 +103,7 @@ public abstract class AbstractPlayer implements Observable {
     public void move(final float DeltaX) {
         for (int i = 0; i < stacksCenter.length; i++) {
             stacksCenter[i][0] += DeltaX;
-            System.out.println("stacksCenters : " + stacksCenter[i][1]);
+            Logging.info("stacksCenters : " + stacksCenter[i][1]);
         }
     }
 

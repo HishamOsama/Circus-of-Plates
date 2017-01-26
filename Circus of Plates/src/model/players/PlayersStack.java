@@ -104,7 +104,7 @@ public class PlayersStack implements Runnable {
             final boolean allSimilar = checkSimilarity(platesToCheck);
             
             if (allSimilar) {
-            	Logging.debug("HELLO!!!!!");
+            	
                 for (int i = 0; i < similarity; i++) {
                     plates.pop();
                     final ImageView im = images.remove(images.size() - 1);

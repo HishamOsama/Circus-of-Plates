@@ -30,6 +30,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import logging.Logging;
 import model.levels.HighSpeed;
 import model.levels.LowSpeed;
 import model.levels.MediumSpeed;
@@ -130,7 +131,7 @@ public class App extends Application {
 
 			getChildren().addAll(c1, text, c2);
 			setActive(false);
-			setOnActivate(() -> System.out.println(name + " activated"));
+			setOnActivate(() -> Logging.info(name + " activated"));
 		}
 
 		public void setActive(final boolean b) {
@@ -269,7 +270,6 @@ public class App extends Application {
 		final FileChooser fileChooser = new FileChooser();
 		final File path = fileChooser.showOpenDialog(null);
 		// Show save file dialog
-		System.out.println(path);
 		final String pathString = path.toString();
 		final File f = new File(pathString);
 		final String fileName = f.getName().substring(0, f.getName().indexOf('.'));

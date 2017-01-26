@@ -11,5 +11,9 @@ public class Paused {
     public static boolean getState() {
         return isPaused;
     }
+    
+    public static void setState(boolean state){
+        isPaused = state;
+    }
 
 }

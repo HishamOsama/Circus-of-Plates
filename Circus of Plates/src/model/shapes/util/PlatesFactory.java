@@ -3,6 +3,7 @@ package model.shapes.util;
 import java.util.Collection;
 import java.util.HashMap;
 
+import logging.Logging;
 import model.shapes.interfaces.Shape;
 
 public class PlatesFactory {
@@ -22,7 +23,7 @@ public class PlatesFactory {
 
 	public void registerShape(final String key,
 			final Class<? extends Shape> shapeClass) {
-		System.out.println("Registered Successfully " + key);
+		Logging.info("Registered Successfully " + key);
 		registeredShapes.put(key, shapeClass);
 	}
 
