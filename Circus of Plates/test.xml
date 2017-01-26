@@ -2,7 +2,17 @@
 <test>
     <GameState>
         <Difficulty>30</Difficulty>
-        <Time>45</Time>
+        <Time>58</Time>
+        <players>
+            <player>
+                <x>400.0</x>
+                <y>520.0</y>
+            </player>
+            <player>
+                <x>100.0</x>
+                <y>520.0</y>
+            </player>
+        </players>
         <Scores>
             <Score>0</Score>
             <Score>0</Score>
@@ -10,22 +20,8 @@
     </GameState>
     <Stacks>
         <Stack>
-            <right>
-                <element>
-                    <name>YellowStar</name>
-                    <color>0xffff00ff</color>
-                    <x>635.0</x>
-                    <y>520.0</y>
-                </element>
-            </right>
-            <left>
-                <element>
-                    <name>YellowStar</name>
-                    <color>0xffff00ff</color>
-                    <x>510.0</x>
-                    <y>555.0</y>
-                </element>
-            </left>
+            <right/>
+            <left/>
         </Stack>
         <Stack>
             <right/>
