@@ -6,7 +6,6 @@ import java.util.Stack;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import logging.Logging;
 import model.save.SaveShapeNode;
 import model.shapes.interfaces.Shape;
 

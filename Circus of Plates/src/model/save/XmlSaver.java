@@ -25,8 +25,9 @@ public class XmlSaver implements SaverIF {
 
     private static XmlSaver saver;
     private final ColorMap colorMap;
+
     private XmlSaver() {
-    	colorMap = new ColorMap();
+        colorMap = new ColorMap();
     }
 
     public static SaverIF getInstance() {
@@ -200,13 +201,15 @@ public class XmlSaver implements SaverIF {
                                 final Node nNode3 = nList3.item(k);
                                 if (nNode3.getNodeType() == Node.ELEMENT_NODE) {
                                     final Element eElement3 = (Element) nNode3;
-                                    final String className = eElement3.getElementsByTagName("name").item(0).getTextContent();
+                                    final String className = eElement3.getElementsByTagName("name").item(0)
+                                            .getTextContent();
                                     final int x = Integer
                                             .valueOf(eElement3.getElementsByTagName("x").item(0).getTextContent());
                                     final int y = Integer
                                             .valueOf(eElement3.getElementsByTagName("y").item(0).getTextContent());
 
-                                    final Color color = colorMap.getColor(eElement3.getElementsByTagName("color").item(0).getTextContent()); // eElement2.getElementsByTagName("color").item(0).getTextContent();
+                                    final Color color = colorMap
+                                            .getColor(eElement3.getElementsByTagName("color").item(0).getTextContent()); // eElement2.getElementsByTagName("color").item(0).getTextContent();
                                     right.add(new SaveShapeNode(className, color, x, y));
                                 }
                             }
@@ -223,13 +226,15 @@ public class XmlSaver implements SaverIF {
                                 final Node nNode3 = nList3.item(k);
                                 if (nNode3.getNodeType() == Node.ELEMENT_NODE) {
                                     final Element eElement3 = (Element) nNode3;
-                                    final String className = eElement3.getElementsByTagName("name").item(0).getTextContent();
+                                    final String className = eElement3.getElementsByTagName("name").item(0)
+                                            .getTextContent();
                                     final int x = Integer
                                             .valueOf(eElement3.getElementsByTagName("x").item(0).getTextContent());
                                     final int y = Integer
                                             .valueOf(eElement3.getElementsByTagName("y").item(0).getTextContent());
 
-                                    final Color color = colorMap.getColor(eElement3.getElementsByTagName("color").item(0).getTextContent()); // eElement2.getElementsByTagName("color").item(0).getTextContent();
+                                    final Color color = colorMap
+                                            .getColor(eElement3.getElementsByTagName("color").item(0).getTextContent()); // eElement2.getElementsByTagName("color").item(0).getTextContent();
                                     left.add(new SaveShapeNode(className, color, x, y));
                                 }
                             }
@@ -242,10 +247,11 @@ public class XmlSaver implements SaverIF {
             }
             load.buildGameState(g);
             load.buildPlayer(data);
-
+            inputStream.close();
         } catch (final Exception e) {
 
         }
+
         return load;
     }
 
