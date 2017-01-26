@@ -15,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -74,7 +76,7 @@ public class App extends Application {
 		menuBox.setTranslateX(360);
 		menuBox.setTranslateY(300);
 
-		Text about = new Text("MKXMenuApp\n\tby\n    AlmasB");
+		Text about = new Text("Circus of Plates");
 		about.setTranslateX(50);
 		about.setTranslateY(500);
 		about.setFill(Color.WHITE);
@@ -84,6 +86,22 @@ public class App extends Application {
 		getMenuItem(0).setActive(true);
 
 		root.getChildren().addAll(bg, hbox, menuBox, about);
+		
+		
+		String pausePath = System.getProperty("user.dir") + File.separator + "Resources" + File.separator + "circus.png"
+				+ File.separator;
+		pausePath = new File(pausePath).toURI().toString();
+		Image pause = new Image(pausePath);
+
+		ImageView pauseImage = new ImageView(pause);
+		pauseImage.setX(290);
+		pauseImage.setY(20);
+		pauseImage.setFitWidth(250);
+		pauseImage.setFitHeight(250);
+		root.getChildren().add(pauseImage);
+		
+		
+		
 		return root;
 	}
 
