@@ -2797,3 +2797,120 @@
 [DEBUG] 2017-01-25 22:37:53.814 [main] Logging - model.shapes.RedStar
 [DEBUG] 2017-01-25 22:44:27.510 [main] Logging - model.shapes.RedStar
 [DEBUG] 2017-01-25 22:49:01.381 [main] Logging - model.shapes.RedStar
+[DEBUG] 2017-01-26 06:30:25.681 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:30:25.685 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:30:25.687 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:30:25.688 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:30:25.921 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:25.948 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:25.977 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.006 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.060 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.090 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.110 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.190 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.214 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.234 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.255 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.271 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.283 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.296 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.325 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.345 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.356 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.371 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.383 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.397 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.411 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.421 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.433 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.457 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.466 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.478 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.492 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.504 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.513 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.522 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.541 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.555 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.564 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.574 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.584 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.593 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.604 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.614 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.666 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:26.676 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:30:28.383 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:30.330 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:32.334 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:34.346 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:36.330 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:38.335 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:40.331 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:42.337 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:44.332 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:46.338 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:48.348 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:50.334 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:52.337 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:54.332 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:56.338 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:30:58.345 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:30.787 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:31:30.792 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:31:30.794 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:31:30.796 [JavaFX Application Thread] Logging - Static Initializer Executed
+[DEBUG] 2017-01-26 06:31:31.016 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.045 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.068 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.144 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.175 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.204 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.229 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.260 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.301 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.330 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.353 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.368 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.379 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.390 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.401 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.413 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.424 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.435 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.451 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.467 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.477 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.530 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.538 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.546 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.556 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.564 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.573 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.582 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.591 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.600 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.611 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.620 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.632 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.643 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.653 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.670 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.678 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.689 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.699 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:31.708 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:32.349 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:32.376 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:32.393 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:32.415 [JavaFX Application Thread] Logging - Image Loaded Successfully
+[DEBUG] 2017-01-26 06:31:32.874 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:34.886 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:36.874 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:38.883 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:40.872 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:42.878 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:44.889 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:46.879 [JavaFX Application Thread] Logging - finally out
+[DEBUG] 2017-01-26 06:31:48.875 [JavaFX Application Thread] Logging - finally out

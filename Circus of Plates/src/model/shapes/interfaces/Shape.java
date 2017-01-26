@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import javafx.scene.paint.Color;
+import logging.Logging;
 
 
 public abstract class Shape {
