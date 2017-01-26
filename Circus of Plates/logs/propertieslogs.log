@@ -2791,3 +2791,9 @@
 [DEBUG] 2017-01-25 19:54:55.790 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-25 19:57:25.400 [JavaFX Application Thread] MainController - Hello
 [DEBUG] 2017-01-25 19:59:36.877 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-25 21:44:30.898 [JavaFX Application Thread] MainController - Hello
+[DEBUG] 2017-01-25 22:37:00.826 [main] Logging - model.shapes.RedStar
+[DEBUG] 2017-01-25 22:37:00.980 [main] Logging - model.shapes.YellowStar
+[DEBUG] 2017-01-25 22:37:53.814 [main] Logging - model.shapes.RedStar
+[DEBUG] 2017-01-25 22:44:27.510 [main] Logging - model.shapes.RedStar
+[DEBUG] 2017-01-25 22:49:01.381 [main] Logging - model.shapes.RedStar

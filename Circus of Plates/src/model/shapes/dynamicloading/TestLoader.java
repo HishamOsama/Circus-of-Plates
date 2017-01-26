@@ -1,31 +1,15 @@
 package model.shapes.dynamicloading;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
-import model.shapes.interfaces.Shape;
+import java.io.File;
 
 public class TestLoader {
 
     public static void main(final String[] args) {
-        final Loader loader = new Loader();
-        final String path = "D:\\College\\2ndYear1stTerm\\OOP\\CircusOfPlatesRepository\\circus-of-plates\\Circus of Plates\\shapesJARS\\";
-        loader.setPath(path);
-        final ArrayList<Constructor<Shape>> loaded = loader.invokeClassMethod();
-        for(int i = 0 ; i < loaded.size() ; i++){
-        	try {
-				Class.forName(loaded.get(i).getName());
-			} catch (final ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-            System.out.println(loaded.get(i).getName());
-            try {
-				final Shape shape = loaded.get(i).newInstance();
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException e) {
-				e.printStackTrace();
-			}
+        final Loader loader = Loader.getInstance();
+        final String path = System.getProperty("user.dir") + File.separator + "shapesJARS";
+        final File file = new File(path);
+        for (File f : file.listFiles()) {
+            loader.invokeClassMethod(f);
         }
 
     }

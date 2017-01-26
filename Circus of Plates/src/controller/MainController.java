@@ -57,7 +57,7 @@ public class MainController {
     private Button saveButton;
 
     private ResourcesManager resourcesManager;
-    private Logger logger;
+    
     private AbstractPlayer player1, player2;
     private ScoreManager scoreManager;
     private Integer countingNumbers = 60;
@@ -90,8 +90,7 @@ public class MainController {
         imageView.setImage(image);
         imageView.setFitWidth(DimensionsConstants.XBoundary);
         imageView.setFitHeight(DimensionsConstants.YBoundary);
-        logger = LogManager.getLogger();
-        logger.debug("Hello");
+
         final ImageView player1 = createP1();
         final ImageView player2 = createP2();
         move(paneFXid, player1, player2);
